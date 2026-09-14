@@ -31,7 +31,7 @@ class ContactController extends Controller
         unset($validated['privacy_accepted']);
         $contactRequest = ContactRequest::query()->create($validated);
 
-        Mail::to(config('contact.notifications_email'))->queue(new ContactRequestReceived($contactRequest));
+        Mail::to(config('mail.notifications_email'))->queue(new ContactRequestReceived($contactRequest));
 
         return to_route('contact.create')->with('contact_sent', 'Multumim! Mesajul tau a fost trimis.');
     }
