@@ -60,19 +60,20 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## Hostico deployment
 
 The repository includes a `.cpanel.yml` deployment configuration for cPanel
-Git Version Control. It deploys the application source to:
+Git Version Control. The domain serves the repository directly from:
 
 ```text
-/home/rlwrgzez/conectica-live/
+/home/rlwrgzez/repositories/conectica/
 ```
 
 Configure the domain document root to point to:
 
 ```text
-/home/rlwrgzez/conectica-live/public
+/home/rlwrgzez/repositories/conectica/public
 ```
 
 Create the production `.env`, install Composer dependencies, create the storage
 link, run migrations, and build frontend assets on the Hostico account before
-the first public launch. The deployment file intentionally does not copy
-`.env`, `vendor`, or user-uploaded storage files.
+the first public launch. The deployment file does not copy files to a second
+directory, so `.env`, `vendor`, and user-uploaded storage files remain managed
+directly in the repository directory.
