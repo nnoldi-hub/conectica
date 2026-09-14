@@ -15,7 +15,7 @@ class TrackPageViews
 
         if ($request->isMethod('GET') && $response->isSuccessful() && $request->routeIs('home', 'services.*', 'projects.*', 'blog.*', 'contact.*')) {
             PageView::query()->create([
-                'path' => '/'.ltrim($request->path(), '/'),
+                'path' => substr('/'.ltrim($request->path(), '/'), 0, 255),
                 'referrer_host' => $this->referrerHost($request->headers->get('referer')),
                 'viewed_at' => now(),
             ]);

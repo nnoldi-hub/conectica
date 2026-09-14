@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('page_views', function (Blueprint $table): void {
             $table->id();
-            $table->string('path', 2048);
+            $table->string('path', 255);
             $table->string('referrer_host')->nullable();
             $table->timestamp('viewed_at')->index();
             $table->index(['path', 'viewed_at']);
