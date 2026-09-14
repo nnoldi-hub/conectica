@@ -1,0 +1,34 @@
+@extends('layouts.public')
+
+@section('title', 'Proiecte | Conectica IT')
+@section('description', 'Proiecte si solutii software dezvoltate de Conectica IT.')
+@section('structured_data')
+    {!! json_encode([chr(64).'context' => 'https://schema.org', chr(64).'type' => 'CollectionPage', 'name' => 'Proiecte Conectica IT', 'url' => route('projects.index')], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+@endsection
+
+@section('content')
+    <main class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+        <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400">Portofoliu</p>
+        <h1 class="mt-5 max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-6xl">Proiecte construite cu atentie la detalii.</h1>
+        <div class="mt-16 grid gap-6 md:grid-cols-2">
+            @forelse ($projects as $project)
+                <article class="rounded-3xl border border-white/10 bg-white/[0.04] p-8 transition hover:border-cyan-400/40">
+                    @if ($project->image_path)
+                        <img src="{{ Storage::disk('public')->url($project->image_path) }}" alt="{{ $project->title }}" class="mb-8 aspect-video w-full rounded-2xl object-cover">
+                    @endif
+                    <p class="text-sm text-cyan-300">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</p>
+                    <h2 class="mt-8 text-2xl font-semibold text-white">{{ $project->title }}</h2>
+                    <p class="mt-4 max-w-xl leading-7 text-slate-400">{{ $project->summary }}</p>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        @foreach ($project->technologies ?? [] as $technology)
+                            <span class="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-300">{{ $technology }}</span>
+                        @endforeach
+                    </div>
+                    <a href="{{ route('projects.show', $project) }}" class="mt-8 inline-flex text-sm font-semibold text-white transition hover:text-cyan-300">Vezi proiectul <span class="ml-2" aria-hidden="true">-&gt;</span></a>
+                </article>
+            @empty
+                <p class="text-slate-400">Portofoliul va fi disponibil in curand.</p>
+            @endforelse
+        </div>
+    </main>
+@endsection

@@ -1,0 +1,36 @@
+@extends('layouts.public')
+
+@section('title', $post->seo_title ?: $post->title)
+@section('description', $post->seo_description ?: $post->excerpt)
+@section('og_type', 'article')
+@if ($post->image_path)
+    @section('og_image', Storage::disk('public')->url($post->image_path))
+@endif
+@section('structured_data')
+    {!! json_encode([chr(64).'context' => 'https://schema.org', chr(64).'type' => 'Article', 'headline' => $post->title, 'description' => $post->excerpt, 'datePublished' => $post->published_at?->toAtomString(), 'dateModified' => $post->updated_at?->toAtomString(), 'url' => route('blog.show', $post)], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+@endsection
+
+@section('content')
+    <main class="mx-auto max-w-3xl px-6 py-20 lg:px-8 lg:py-28">
+        <a href="{{ route('blog.index') }}" class="text-sm font-medium text-cyan-300 transition hover:text-cyan-200">&lt;- Inapoi la blog</a>
+        @if ($post->image_path)
+            <img src="{{ Storage::disk('public')->url($post->image_path) }}" alt="{{ $post->title }}" class="mt-12 aspect-video w-full rounded-3xl object-cover">
+        @endif
+        <div class="mt-16 flex items-center gap-3 text-sm text-slate-400">
+            <time datetime="{{ $post->published_at->toDateString() }}">{{ $post->published_at->format('d.m.Y') }}</time>
+            @if ($post->category)
+                <span class="text-cyan-300">{{ $post->category->name }}</span>
+            @endif
+        </div>
+        <h1 class="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-6xl">{{ $post->title }}</h1>
+        <p class="mt-8 text-xl leading-9 text-slate-300">{{ $post->excerpt }}</p>
+        <div class="prose prose-invert mt-12 max-w-none whitespace-pre-line leading-8 text-slate-300">{{ $post->body }}</div>
+        @if ($post->tags)
+            <div class="mt-12 flex flex-wrap gap-2 border-t border-white/10 pt-8">
+                @foreach ($post->tags as $tag)
+                    <span class="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-300">#{{ $tag }}</span>
+                @endforeach
+            </div>
+        @endif
+    </main>
+@endsection
