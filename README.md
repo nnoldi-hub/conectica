@@ -56,3 +56,23 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Hostico deployment
+
+The repository includes a `.cpanel.yml` deployment configuration for cPanel
+Git Version Control. It deploys the application source to:
+
+```text
+/home/rlwrgzez/conectica-live/
+```
+
+Configure the domain document root to point to:
+
+```text
+/home/rlwrgzez/conectica-live/public
+```
+
+Create the production `.env`, install Composer dependencies, create the storage
+link, run migrations, and build frontend assets on the Hostico account before
+the first public launch. The deployment file intentionally does not copy
+`.env`, `vendor`, or user-uploaded storage files.
