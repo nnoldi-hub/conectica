@@ -1,6 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # Redirect www to non-www (canonical domain)
+    RewriteCond %{HTTP_HOST} ^www\.conectica-it\.ro$ [NC]
+    RewriteRule ^ https://conectica-it.ro%{REQUEST_URI} [L,R=301]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
