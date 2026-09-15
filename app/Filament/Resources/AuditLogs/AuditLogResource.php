@@ -17,6 +17,16 @@ class AuditLogResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Sistem';
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return 3;
+    }
+
     public static function getNavigationLabel(): string
     {
         return 'Jurnal activitate';

@@ -20,6 +20,16 @@ class SocialLinkResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShare;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Comunicare';
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return 2;
+    }
+
     public static function getNavigationLabel(): string
     {
         return 'Retele sociale';

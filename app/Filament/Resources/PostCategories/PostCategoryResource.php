@@ -20,6 +20,16 @@ class PostCategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Continut site';
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return 4;
+    }
+
     public static function getNavigationLabel(): string
     {
         return 'Categorii articole';
