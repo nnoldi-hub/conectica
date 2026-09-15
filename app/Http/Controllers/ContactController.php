@@ -25,6 +25,10 @@ class ContactController extends Controller
         if ($request->filled('company_website') || $this->looksLikeSpam($request->string('form_rendered_at')->toString())) {
             Log::info('Contact form submission blocked as suspected spam.', [
                 'ip' => $request->ip(),
+                'honeypot_filled' => $request->filled('company_website'),
+                'honeypot_value' => $request->input('company_website'),
+                'form_rendered_at_raw' => $request->input('form_rendered_at'),
+                'elapsed_seconds' => $this->debugElapsedSeconds($request->string('form_rendered_at')->toString()),
             ]);
 
             return to_route('contact.create')->with('contact_sent', 'Multumim! Mesajul tau a fost trimis.');
@@ -59,5 +63,20 @@ class ContactController extends Controller
         $elapsed = microtime(true) - $renderedAt;
 
         return $elapsed < 3 || $elapsed > 3600;
+    }
+
+    /**
+     * Temporary diagnostic helper: returns the elapsed seconds (or null if
+     * decryption failed) so we can log it without duplicating the try/catch.
+     */
+    private function debugElapsedSeconds(string $encryptedRenderedAt): ?float
+    {
+        try {
+            $renderedAt = (float) Crypt::decryptString($encryptedRenderedAt);
+        } catch (\Exception) {
+            return null;
+        }
+
+        return microtime(true) - $renderedAt;
     }
 }
