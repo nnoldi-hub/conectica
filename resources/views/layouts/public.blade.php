@@ -5,7 +5,7 @@
             $pageTitle = trim($__env->yieldContent('title')) ?: 'Conectica IT';
             $pageDescription = trim($__env->yieldContent('description')) ?: 'Conectica IT - dezvoltare software, automatizari si solutii digitale.';
             $pageCanonical = trim($__env->yieldContent('canonical')) ?: url()->current();
-            $pageOgImage = trim($__env->yieldContent('og_image'));
+            $pageOgImage = trim($__env->yieldContent('og_image')) ?: asset('logo_conectica.png');
         @endphp
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
