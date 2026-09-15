@@ -43,7 +43,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('logo_symbol.png'))
             ->brandLogoHeight('2.5rem')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Cyan,
             ])
             ->navigationGroups([
                 NavigationGroup::make('Continut site')->collapsible(false),
