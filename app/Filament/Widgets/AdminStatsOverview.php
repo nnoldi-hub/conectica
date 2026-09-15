@@ -15,7 +15,7 @@ class AdminStatsOverview extends StatsOverviewWidget
     {
         return [
             Stat::make('Articole', Post::query()->count())
-                ->description(Post::query()->where('status', 'published')->count().' publicate')
+                ->description(Post::query()->where('is_published', true)->count().' publicate')
                 ->color('info'),
             Stat::make('Proiecte', Project::query()->count())
                 ->description(Project::query()->where('is_published', true)->count().' publicate')
