@@ -17,9 +17,9 @@
             <form method="POST" action="{{ route('contact.store') }}" class="space-y-6">
                 @csrf
                 <input type="hidden" name="form_rendered_at" value="{{ $formRenderedAt }}">
-                <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;" tabindex="-1">
-                    <label for="company_website">Nu completa acest camp</label>
-                    <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+                <div aria-hidden="true" style="display:none;" tabindex="-1">
+                    <label for="hp_field_9k2x">Nu completa acest camp</label>
+                    <input type="text" id="hp_field_9k2x" name="hp_field_9k2x" tabindex="-1" autocomplete="off">
                 </div>
                 <div class="grid gap-6 sm:grid-cols-2">
                     <div>

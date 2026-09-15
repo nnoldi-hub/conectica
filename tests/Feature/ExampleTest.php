@@ -268,7 +268,7 @@ class ExampleTest extends TestCase
             'message' => 'Acesta este un mesaj automat generat de un bot.',
             'privacy_accepted' => '1',
             'form_rendered_at' => $this->validFormRenderedAt(),
-            'company_website' => 'https://spam.example.com',
+            'hp_field_9k2x' => 'https://spam.example.com',
         ]);
 
         $response->assertRedirect(route('contact.create'));
