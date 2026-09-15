@@ -18,7 +18,7 @@ class PostCategoryResource extends Resource
 {
     protected static ?string $model = PostCategory::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
 
     public static function getNavigationGroup(): ?string
     {

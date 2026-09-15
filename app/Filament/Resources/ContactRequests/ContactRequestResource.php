@@ -18,7 +18,7 @@ class ContactRequestResource extends Resource
 {
     protected static ?string $model = ContactRequest::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedEnvelope;
 
     public static function getNavigationGroup(): ?string
     {
