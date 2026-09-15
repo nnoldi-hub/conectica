@@ -10,6 +10,10 @@
         <div class="mt-10 space-y-8 text-lg leading-8 text-slate-600">
             <p>Respectam confidentialitatea datelor tale. Aceasta politica explica ce date colectam prin formularul de contact si cum le folosim.</p>
             <section>
+                <h2 class="text-2xl font-semibold text-slate-900">Operatorul de date</h2>
+                <p class="mt-3">Datele transmise prin acest site sunt prelucrate de Nyikora Noldi, persoana fizica, cu activitate desfasurata in Bucuresti. Pentru orice solicitare legata de datele tale personale, ne poti contacta la <a class="text-cyan-600 underline" href="mailto:contact@conectica-it.ro">contact@conectica-it.ro</a>.</p>
+            </section>
+            <section>
                 <h2 class="text-2xl font-semibold text-slate-900">Ce date colectam</h2>
                 <p class="mt-3">Putem colecta numele, adresa de email, numarul de telefon, serviciul solicitat, bugetul estimativ si mesajul trimis de tine.</p>
             </section>
@@ -19,11 +23,11 @@
             </section>
             <section>
                 <h2 class="text-2xl font-semibold text-slate-900">Temei si pastrare</h2>
-                <p class="mt-3">Prelucrarea se bazeaza pe solicitarea ta si pe consimtamantul exprimat in formular. Pastram datele doar cat este necesar pentru gestionarea solicitarii si obligatiile legale aplicabile.</p>
+                <p class="mt-3">Prelucrarea se bazeaza pe solicitarea ta si pe consimtamantul exprimat in formular. Pastram datele aferente cererilor de contact pentru o perioada de maximum 24 de luni de la data ultimei interactiuni, dupa care sunt sterse sau anonimizate, cu exceptia cazului in care legea impune o perioada mai lunga de pastrare.</p>
             </section>
             <section>
                 <h2 class="text-2xl font-semibold text-slate-900">Drepturile tale</h2>
-                <p class="mt-3">Poti solicita accesul, corectarea, stergerea, restrictionarea sau portarea datelor, precum si retragerea consimtamantului. Pentru solicitari, foloseste adresa <a class="text-cyan-600 underline" href="mailto:iproiect2014@gmail.com">iproiect2014@gmail.com</a>.</p>
+                <p class="mt-3">Poti solicita accesul, corectarea, stergerea, restrictionarea sau portarea datelor, precum si retragerea consimtamantului. Pentru solicitari, foloseste adresa <a class="text-cyan-600 underline" href="mailto:contact@conectica-it.ro">contact@conectica-it.ro</a>. Ai, de asemenea, dreptul de a depune o plangere la Autoritatea Nationala de Supraveghere a Prelucrarii Datelor cu Caracter Personal (ANSPDCP).</p>
             </section>
             <p class="border-t border-slate-200 pt-6 text-sm text-slate-500">Aceasta pagina este un model informational si trebuie verificata de un specialist juridic inainte de publicarea site-ului.</p>
         </div>

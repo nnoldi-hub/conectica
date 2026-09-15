@@ -10,6 +10,10 @@
         <div class="mt-10 space-y-8 text-lg leading-8 text-slate-600">
             <p>Folosirea site-ului Conectica IT presupune acceptarea acestor termeni. Continutul este furnizat cu scop informativ si nu reprezinta o oferta contractuala.</p>
             <section>
+                <h2 class="text-2xl font-semibold text-slate-900">Furnizorul serviciilor</h2>
+                <p class="mt-3">Site-ul si serviciile Conectica IT sunt operate de Nyikora Noldi, persoana fizica, cu activitate desfasurata in Bucuresti. Pentru intrebari legate de acesti termeni, ne poti contacta la <a class="text-cyan-600 underline" href="mailto:contact@conectica-it.ro">contact@conectica-it.ro</a>.</p>
+            </section>
+            <section>
                 <h2 class="text-2xl font-semibold text-slate-900">Continutul site-ului</h2>
                 <p class="mt-3">Textele, imaginile, identitatea vizuala si materialele publicate apartin Conectica IT sau sunt folosite cu drept de utilizare. Reproducerea lor fara acord nu este permisa.</p>
             </section>

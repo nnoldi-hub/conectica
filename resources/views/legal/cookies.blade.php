@@ -17,6 +17,10 @@
                 <h2 class="text-2xl font-semibold text-slate-900">Controlul cookie-urilor</h2>
                 <p class="mt-3">Poti sterge sau bloca cookie-urile din setarile browserului. Dezactivarea cookie-urilor strict necesare poate afecta autentificarea in zona de administrare.</p>
             </section>
+            <section>
+                <h2 class="text-2xl font-semibold text-slate-900">Contact</h2>
+                <p class="mt-3">Pentru intrebari despre aceasta politica, ne poti scrie la <a class="text-cyan-600 underline" href="mailto:contact@conectica-it.ro">contact@conectica-it.ro</a>.</p>
+            </section>
             <p class="border-t border-slate-200 pt-6 text-sm text-slate-500">Politica va fi actualizata daca vom adauga servicii externe de analytics, marketing sau integrari care folosesc cookie-uri.</p>
         </div>
     </main>
