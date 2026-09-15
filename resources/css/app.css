@@ -15,6 +15,24 @@ body {
     overflow-x: hidden;
 }
 
+.desktop-nav {
+    display: flex;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .desktop-nav {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+}
+
 img,
 svg,
 video,
