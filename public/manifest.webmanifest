@@ -1,0 +1,25 @@
+{
+    "name": "Conectica IT",
+    "short_name": "Conectica IT",
+    "description": "Solutii software, automatizari si produse digitale construite cu claritate.",
+    "lang": "ro",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#f8fafc",
+    "theme_color": "#f8fafc",
+    "icons": [
+        {
+            "src": "/logo_conectica.png",
+            "sizes": "1254x1254",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/favicon.png",
+            "sizes": "256x256",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

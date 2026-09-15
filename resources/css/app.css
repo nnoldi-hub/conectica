@@ -16,20 +16,20 @@ body {
 }
 
 .desktop-nav {
-    display: flex;
+    display: flex !important;
 }
 
 .mobile-menu {
-    display: none;
+    display: none !important;
 }
 
 @media (max-width: 767px) {
     .desktop-nav {
-        display: none;
+        display: none !important;
     }
 
     .mobile-menu {
-        display: block;
+        display: block !important;
     }
 }
 

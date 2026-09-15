@@ -11,6 +11,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
         <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
+        <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
+        <meta name="theme-color" content="#f8fafc">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
         <meta name="description" content="{{ $pageDescription }}">
         <link rel="canonical" href="{{ $pageCanonical }}">
         <meta property="og:type" content="@yield('og_type', 'website')">
@@ -42,13 +47,13 @@
                         </span>
                     </span>
                 </a>
-                <nav class="desktop-nav hidden items-center gap-6 text-sm text-slate-300 md:flex">
+                <nav class="desktop-nav items-center gap-6 text-sm text-slate-300">
                     <a href="{{ route('services.index') }}" class="transition hover:text-white">Servicii</a>
                     <a href="{{ route('projects.index') }}" class="transition hover:text-white">Proiecte</a>
                     <a href="{{ route('blog.index') }}" class="transition hover:text-white">Blog</a>
                     <a href="{{ route('contact.create') }}" class="rounded-full border border-cyan-400/40 px-4 py-2 font-medium text-cyan-300 transition hover:border-cyan-300 hover:text-cyan-200">Contact</a>
                 </nav>
-                <details class="mobile-menu group relative md:hidden">
+                <details class="mobile-menu group relative">
                     <summary class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-xl border border-white/10 text-slate-200 transition hover:border-cyan-400/50 hover:text-cyan-300 [&::-webkit-details-marker]:hidden">
                         <span class="sr-only">Deschide meniul</span>
                         <svg class="h-6 w-6 group-open:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
