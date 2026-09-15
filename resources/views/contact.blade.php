@@ -16,6 +16,11 @@
             @endif
             <form method="POST" action="{{ route('contact.store') }}" class="space-y-6">
                 @csrf
+                <input type="hidden" name="form_rendered_at" value="{{ $formRenderedAt }}">
+                <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;" tabindex="-1">
+                    <label for="company_website">Nu completa acest camp</label>
+                    <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="grid gap-6 sm:grid-cols-2">
                     <div>
                         <label for="name" class="text-sm font-medium text-slate-200">Nume *</label>

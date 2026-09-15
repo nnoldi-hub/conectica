@@ -13,6 +13,7 @@ use App\Models\User;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -20,6 +21,11 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     use RefreshDatabase;
+
+    private function validFormRenderedAt(): string
+    {
+        return Crypt::encryptString((string) (microtime(true) - 5));
+    }
 
     /**
      * A basic test example.
@@ -228,6 +234,7 @@ class ExampleTest extends TestCase
             'budget' => '2.000 - 5.000 EUR',
             'message' => 'Am nevoie de o aplicatie pentru gestionarea proiectelor.',
             'privacy_accepted' => '1',
+            'form_rendered_at' => $this->validFormRenderedAt(),
         ]);
 
         $response->assertRedirect(route('contact.create'));
@@ -244,10 +251,46 @@ class ExampleTest extends TestCase
             'name' => '',
             'email' => 'not-an-email',
             'message' => 'scurt',
+            'form_rendered_at' => $this->validFormRenderedAt(),
         ]);
 
         $response->assertSessionHasErrors(['name', 'email', 'message', 'privacy_accepted']);
         $this->assertDatabaseCount('contact_requests', 0);
+    }
+
+    public function test_contact_form_honeypot_field_silently_blocks_bots(): void
+    {
+        Mail::fake();
+
+        $response = $this->post('/contact', [
+            'name' => 'Bot Test',
+            'email' => 'bot@example.com',
+            'message' => 'Acesta este un mesaj automat generat de un bot.',
+            'privacy_accepted' => '1',
+            'form_rendered_at' => $this->validFormRenderedAt(),
+            'company_website' => 'https://spam.example.com',
+        ]);
+
+        $response->assertRedirect(route('contact.create'));
+        $this->assertDatabaseCount('contact_requests', 0);
+        Mail::assertNothingQueued();
+    }
+
+    public function test_contact_form_rejects_submissions_that_are_too_fast(): void
+    {
+        Mail::fake();
+
+        $response = $this->post('/contact', [
+            'name' => 'Bot rapid',
+            'email' => 'fast@example.com',
+            'message' => 'Mesaj trimis instantaneu de un script automat.',
+            'privacy_accepted' => '1',
+            'form_rendered_at' => Crypt::encryptString((string) microtime(true)),
+        ]);
+
+        $response->assertRedirect(route('contact.create'));
+        $this->assertDatabaseCount('contact_requests', 0);
+        Mail::assertNothingQueued();
     }
 
     public function test_contact_form_is_rate_limited(): void
@@ -259,6 +302,7 @@ class ExampleTest extends TestCase
             'email' => 'client@example.com',
             'message' => 'Am nevoie de o aplicatie pentru gestionarea proiectelor.',
             'privacy_accepted' => '1',
+            'form_rendered_at' => $this->validFormRenderedAt(),
         ];
 
         $this->post('/contact', $payload);
