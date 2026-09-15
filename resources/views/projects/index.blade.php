@@ -7,14 +7,14 @@
 @endsection
 
 @section('content')
-    <main class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+    <main class="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8 lg:py-28">
         <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400">Portofoliu</p>
-        <h1 class="mt-5 max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-6xl">Proiecte construite cu atentie la detalii.</h1>
-        <div class="mt-16 grid gap-6 md:grid-cols-2">
+        <h1 class="mt-5 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">Proiecte construite cu atentie la detalii.</h1>
+        <div class="mt-10 grid gap-6 md:mt-16 md:grid-cols-2">
             @forelse ($projects as $project)
                 <article class="rounded-3xl border border-white/10 bg-white/[0.04] p-8 transition hover:border-cyan-400/40">
                     @if ($project->image_path)
-                        <img src="{{ Storage::disk('public')->url($project->image_path) }}" alt="{{ $project->title }}" class="mb-8 aspect-video w-full rounded-2xl object-cover">
+                        <img loading="lazy" src="{{ Storage::disk('public')->url($project->image_path) }}" alt="{{ $project->title }}" class="mb-8 aspect-video max-h-[300px] w-full rounded-2xl object-cover md:max-h-none">
                     @endif
                     <p class="text-sm text-cyan-300">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</p>
                     <h2 class="mt-8 text-2xl font-semibold text-white">{{ $project->title }}</h2>

@@ -11,10 +11,10 @@
 @endsection
 
 @section('content')
-    <main class="mx-auto max-w-3xl px-6 py-20 lg:px-8 lg:py-28">
+    <main class="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:py-20 lg:px-8 lg:py-28">
         <a href="{{ route('blog.index') }}" class="text-sm font-medium text-cyan-300 transition hover:text-cyan-200">&lt;- Inapoi la blog</a>
         @if ($post->image_path)
-            <img src="{{ Storage::disk('public')->url($post->image_path) }}" alt="{{ $post->title }}" class="mt-12 aspect-video w-full rounded-3xl object-cover">
+            <img loading="lazy" src="{{ Storage::disk('public')->url($post->image_path) }}" alt="{{ $post->title }}" class="mt-8 aspect-video max-h-[300px] w-full rounded-3xl object-cover md:mt-12 md:max-h-none">
         @endif
         <div class="mt-16 flex items-center gap-3 text-sm text-slate-400">
             <time datetime="{{ $post->published_at->toDateString() }}">{{ $post->published_at->format('d.m.Y') }}</time>
@@ -22,8 +22,8 @@
                 <span class="text-cyan-300">{{ $post->category->name }}</span>
             @endif
         </div>
-        <h1 class="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-6xl">{{ $post->title }}</h1>
-        <p class="mt-8 text-xl leading-9 text-slate-300">{{ $post->excerpt }}</p>
+        <h1 class="mt-6 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">{{ $post->title }}</h1>
+        <p class="mt-6 text-lg leading-8 text-slate-300 md:mt-8 md:text-xl md:leading-9">{{ $post->excerpt }}</p>
         <div class="prose prose-invert mt-12 max-w-none whitespace-pre-line leading-8 text-slate-300">{{ $post->body }}</div>
         @if ($post->tags)
             <div class="mt-12 flex flex-wrap gap-2 border-t border-white/10 pt-8">

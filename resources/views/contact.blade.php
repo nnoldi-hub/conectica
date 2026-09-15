@@ -4,11 +4,11 @@
 @section('description', 'Trimite-ne detaliile proiectului tau si revenim cu o discutie clara despre urmatorii pasi.')
 
 @section('content')
-    <main class="mx-auto grid max-w-7xl gap-16 px-6 py-20 lg:grid-cols-[.8fr_1.2fr] lg:px-8 lg:py-28">
+    <main class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:gap-16 md:py-20 lg:grid-cols-[.8fr_1.2fr] lg:px-8 lg:py-28">
         <div>
             <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400">Contact</p>
-            <h1 class="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-6xl">Hai sa discutam despre urmatorul tau proiect.</h1>
-            <p class="mt-6 text-lg leading-8 text-slate-300">Trimite cateva detalii, iar noi revenim cu intrebari clare si o directie potrivita pentru obiectivul tau.</p>
+            <h1 class="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">Hai sa discutam despre urmatorul tau proiect.</h1>
+            <p class="mt-6 text-base leading-7 text-slate-300 md:text-lg md:leading-8">Trimite cateva detalii, iar noi revenim cu intrebari clare si o directie potrivita pentru obiectivul tau.</p>
         </div>
         <div class="rounded-3xl border border-white/10 bg-white/[0.04] p-8 sm:p-10">
             @if (session('contact_sent'))

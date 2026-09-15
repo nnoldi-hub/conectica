@@ -7,14 +7,14 @@
 @endsection
 
 @section('content')
-    <main class="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
+    <main class="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8 lg:py-28">
         <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400">Blog tehnic</p>
-        <h1 class="mt-5 max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-6xl">Idei practice pentru produse digitale mai bune.</h1>
-        <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <h1 class="mt-5 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">Idei practice pentru produse digitale mai bune.</h1>
+        <div class="mt-10 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
             @forelse ($posts as $post)
                 <article class="flex flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-8">
                     @if ($post->image_path)
-                        <img src="{{ Storage::disk('public')->url($post->image_path) }}" alt="{{ $post->title }}" class="mb-8 aspect-video w-full rounded-2xl object-cover">
+                        <img loading="lazy" src="{{ Storage::disk('public')->url($post->image_path) }}" alt="{{ $post->title }}" class="mb-8 aspect-video max-h-[300px] w-full rounded-2xl object-cover md:max-h-none">
                     @endif
                     <div class="flex items-center gap-3 text-xs text-slate-400">
                         <time datetime="{{ $post->published_at->toDateString() }}">{{ $post->published_at->format('d.m.Y') }}</time>

@@ -30,30 +30,47 @@
     </head>
     <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
         <header class="border-b border-white/10">
-            <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
+            <div class="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5 lg:px-8">
                 <a href="{{ route('home') }}" aria-label="Conectica IT - pagina principala" class="flex items-center gap-2">
-                    <img src="{{ asset('logo_symbol.png') }}" alt="" aria-hidden="true" class="h-14 w-14 object-contain sm:h-16 sm:w-16">
+                    <img src="{{ asset('logo_symbol.png') }}" alt="" aria-hidden="true" class="h-12 w-12 object-contain sm:h-16 sm:w-16">
                     <span class="flex flex-col leading-none">
-                        <span class="text-xl font-semibold tracking-tight text-cyan-500 sm:text-2xl">
+                        <span class="text-lg font-semibold tracking-tight text-cyan-500 sm:text-2xl">
                             conectica<span class="text-blue-600">-it</span>
                         </span>
-                        <span class="mt-1 text-[0.55rem] font-medium tracking-[0.18em] text-slate-500 sm:text-[0.6rem]">
+                        <span class="mt-1 hidden text-[0.55rem] font-medium tracking-[0.18em] text-slate-500 sm:block sm:text-[0.6rem]">
                             Arhitectură. Claritate. Control.
                         </span>
                     </span>
                 </a>
-                <nav class="hidden items-center gap-6 text-sm text-slate-300 sm:flex">
+                <nav class="hidden items-center gap-6 text-sm text-slate-300 md:flex">
                     <a href="{{ route('services.index') }}" class="transition hover:text-white">Servicii</a>
                     <a href="{{ route('projects.index') }}" class="transition hover:text-white">Proiecte</a>
                     <a href="{{ route('blog.index') }}" class="transition hover:text-white">Blog</a>
                     <a href="{{ route('contact.create') }}" class="rounded-full border border-cyan-400/40 px-4 py-2 font-medium text-cyan-300 transition hover:border-cyan-300 hover:text-cyan-200">Contact</a>
                 </nav>
+                <details class="group relative md:hidden">
+                    <summary class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-xl border border-white/10 text-slate-200 transition hover:border-cyan-400/50 hover:text-cyan-300 [&::-webkit-details-marker]:hidden">
+                        <span class="sr-only">Deschide meniul</span>
+                        <svg class="h-6 w-6 group-open:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                        <svg class="hidden h-6 w-6 group-open:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
+                        </svg>
+                    </summary>
+                    <nav class="absolute right-0 top-14 z-20 w-64 rounded-2xl border border-white/10 bg-slate-900 p-3 text-sm text-slate-200 shadow-2xl shadow-black/40">
+                        <a href="{{ route('services.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-white/5 hover:text-cyan-300">Servicii</a>
+                        <a href="{{ route('projects.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-white/5 hover:text-cyan-300">Proiecte</a>
+                        <a href="{{ route('blog.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-white/5 hover:text-cyan-300">Blog</a>
+                        <a href="{{ route('contact.create') }}" class="mt-2 block rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300">Contact</a>
+                    </nav>
+                </details>
             </div>
         </header>
 
         @yield('content')
 
-        <footer id="contact" class="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-10 text-sm text-slate-400 lg:px-8">
+        <footer id="contact" class="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 text-sm text-slate-400 sm:px-6 sm:py-10 lg:px-8">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <p>&copy; {{ date('Y') }} Conectica IT. Toate drepturile rezervate.</p>
                 <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
