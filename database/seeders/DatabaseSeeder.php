@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Models\PostCategory;
-use App\Models\Project;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,6 +15,9 @@ class DatabaseSeeder extends Seeder
 
     /**
      * Seed the application's database.
+     *
+     * Portofoliul real de proiecte se adauga separat, cu:
+     *   php artisan projects:seed-real
      */
     public function run(): void
     {
@@ -33,15 +35,6 @@ class DatabaseSeeder extends Seeder
         ] as $service) {
             Service::query()->create($service);
         }
-
-        Project::query()->create([
-            'title' => 'Platforma digitala personalizata',
-            'slug' => 'platforma-digitala-personalizata',
-            'summary' => 'O baza tehnica moderna pentru continut, servicii si fluxuri de lucru care pot creste odata cu afacerea.',
-            'technologies' => ['Laravel', 'PHP', 'Tailwind CSS'],
-            'is_featured' => true,
-            'sort_order' => 1,
-        ]);
 
         $category = PostCategory::query()->create([
             'name' => 'Dezvoltare software',
