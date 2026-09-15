@@ -14,7 +14,7 @@
 
         <div class="mt-10 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
             @forelse ($services as $service)
-                <article class="rounded-3xl border border-white/10 bg-white/[0.04] p-8">
+                <article class="min-w-0 rounded-3xl border border-white/10 bg-white/[0.04] p-8">
                     <span class="text-sm font-medium text-cyan-300">0{{ $loop->iteration }}</span>
                     <h2 class="mt-10 text-2xl font-semibold text-white">{{ $service->title }}</h2>
                     <p class="mt-4 text-base leading-7 text-slate-400 md:text-lg">{{ $service->description }}</p>

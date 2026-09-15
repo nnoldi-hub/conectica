@@ -9,6 +9,30 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+}
+
+/* Long client-provided titles and URLs must not widen mobile layouts. */
+h1,
+h2,
+h3,
+p,
+a,
+span,
+time {
+    overflow-wrap: anywhere;
+}
+
 /* Public light theme overrides shared by all Blade pages. */
 body.bg-slate-950 {
     background-color: #f8fafc !important;

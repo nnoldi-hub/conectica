@@ -12,7 +12,7 @@
         <h1 class="mt-5 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">Idei practice pentru produse digitale mai bune.</h1>
         <div class="mt-10 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
             @forelse ($posts as $post)
-                <article class="flex flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-8">
+                <article class="min-w-0 flex flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-8">
                     @if ($post->image_path)
                         <img loading="lazy" src="{{ Storage::disk('public')->url($post->image_path) }}" alt="{{ $post->title }}" class="mb-8 aspect-video max-h-[300px] w-full rounded-2xl object-cover md:max-h-none">
                     @endif

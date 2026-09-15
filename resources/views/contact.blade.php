@@ -10,7 +10,7 @@
             <h1 class="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">Hai sa discutam despre urmatorul tau proiect.</h1>
             <p class="mt-6 text-base leading-7 text-slate-300 md:text-lg md:leading-8">Trimite cateva detalii, iar noi revenim cu intrebari clare si o directie potrivita pentru obiectivul tau.</p>
         </div>
-        <div class="rounded-3xl border border-white/10 bg-white/[0.04] p-8 sm:p-10">
+        <div class="min-w-0 rounded-3xl border border-white/10 bg-white/[0.04] p-6 sm:p-10">
             @if (session('contact_sent'))
                 <div class="mb-8 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-4 text-emerald-200">{{ session('contact_sent') }}</div>
             @endif

@@ -12,7 +12,7 @@
         <h1 class="mt-5 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">Proiecte construite cu atentie la detalii.</h1>
         <div class="mt-10 grid gap-6 md:mt-16 md:grid-cols-2">
             @forelse ($projects as $project)
-                <article class="rounded-3xl border border-white/10 bg-white/[0.04] p-8 transition hover:border-cyan-400/40">
+                <article class="min-w-0 rounded-3xl border border-white/10 bg-white/[0.04] p-8 transition hover:border-cyan-400/40">
                     @if ($project->image_path)
                         <img loading="lazy" src="{{ Storage::disk('public')->url($project->image_path) }}" alt="{{ $project->title }}" class="mb-8 aspect-video max-h-[300px] w-full rounded-2xl object-cover md:max-h-none">
                     @endif
