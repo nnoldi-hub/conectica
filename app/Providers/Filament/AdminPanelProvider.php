@@ -8,6 +8,7 @@ use App\Filament\Widgets\AnalyticsOverview;
 use App\Filament\Widgets\QuickActions;
 use App\Filament\Widgets\SeoPerformanceOverview;
 use App\Filament\Widgets\SystemOverview;
+use Filament\Auth\MultiFactor\App\AppAuthentication;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -33,6 +34,10 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile()
+            ->multiFactorAuthentication([
+                AppAuthentication::make(),
+            ])
             ->brandName('Conectica IT · Arhitectură. Claritate. Control.')
             ->brandLogo(asset('logo_symbol.png'))
             ->brandLogoHeight('2.5rem')
