@@ -56,7 +56,10 @@
         <footer id="contact" class="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-10 text-sm text-slate-400 lg:px-8">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <p>&copy; {{ date('Y') }} Conectica IT. Toate drepturile rezervate.</p>
-                <a href="{{ route('contact.create') }}" class="text-cyan-300 transition hover:text-cyan-200">Trimite o solicitare</a>
+                <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                    @include('partials.social-links')
+                    <a href="{{ route('contact.create') }}" class="text-cyan-300 transition hover:text-cyan-200">Trimite o solicitare</a>
+                </div>
             </div>
             <nav aria-label="Linkuri legale" class="flex flex-wrap gap-x-5 gap-y-2 border-t border-slate-200 pt-5 text-xs">
                 <a href="{{ route('legal.privacy') }}" class="transition hover:text-slate-900">Politica de confidentialitate</a>
