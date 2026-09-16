@@ -68,11 +68,56 @@
         @if (! empty($project->gallery))
             <div class="mt-16 md:mt-20">
                 <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">Galerie</p>
-                <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-gallery>
                     @foreach ($project->gallery as $image)
-                        <img loading="lazy" src="{{ Storage::disk('public')->url($image) }}" alt="{{ $project->title }} - imagine {{ $loop->iteration }}" class="aspect-video w-full rounded-2xl object-cover">
+                        @php $galleryUrl = Storage::disk('public')->url($image); @endphp
+                        <button
+                            type="button"
+                            data-gallery-item
+                            data-full="{{ $galleryUrl }}"
+                            data-caption="{{ $project->title }} - imagine {{ $loop->iteration }}"
+                            class="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-500/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                        >
+                            <span class="flex items-center gap-1.5 border-b border-white/10 bg-white/[0.06] px-4 py-2.5">
+                                <span class="h-2.5 w-2.5 rounded-full bg-red-400/70"></span>
+                                <span class="h-2.5 w-2.5 rounded-full bg-amber-400/70"></span>
+                                <span class="h-2.5 w-2.5 rounded-full bg-emerald-400/70"></span>
+                            </span>
+                            <span class="flex aspect-[4/3] items-center justify-center overflow-hidden bg-slate-950/[0.03] p-3">
+                                <img loading="lazy" src="{{ $galleryUrl }}" alt="{{ $project->title }} - imagine {{ $loop->iteration }}" class="h-full w-full object-contain transition duration-300 group-hover:scale-105">
+                            </span>
+                            <span class="pointer-events-none absolute inset-0 flex items-end justify-end p-3 opacity-0 transition group-hover:opacity-100">
+                                <span class="rounded-full bg-slate-950/70 p-2 text-white">
+                                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/>
+                                    </svg>
+                                </span>
+                            </span>
+                        </button>
                     @endforeach
                 </div>
+            </div>
+
+            <div data-lightbox class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/90 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Vizualizare galerie">
+                <button type="button" data-lightbox-close class="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20" aria-label="Inchide">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
+                    </svg>
+                </button>
+                <button type="button" data-lightbox-prev class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 sm:left-6" aria-label="Imaginea anterioara">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <figure class="max-h-[85vh] max-w-5xl">
+                    <img data-lightbox-image src="" alt="" class="max-h-[85vh] w-auto rounded-2xl object-contain shadow-2xl">
+                    <figcaption data-lightbox-caption class="mt-4 text-center text-sm text-slate-300"></figcaption>
+                </figure>
+                <button type="button" data-lightbox-next class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 sm:right-6" aria-label="Imaginea urmatoare">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
             </div>
         @endif
 
