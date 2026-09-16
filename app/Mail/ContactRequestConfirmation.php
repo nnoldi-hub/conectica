@@ -20,6 +20,9 @@ class ContactRequestConfirmation extends Mailable
     {
         return new Envelope(
             subject: 'Am primit mesajul tau - Conectica IT',
+            replyTo: [
+                config('mail.notifications_email'),
+            ],
         );
     }
 
