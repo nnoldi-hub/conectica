@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PdfExportController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EmailTrackingController;
 use App\Http\Controllers\HomeController;
@@ -21,3 +22,8 @@ Route::get('/proiecte', [HomeController::class, 'projects'])->name('projects.ind
 Route::get('/proiecte/{project:slug}', [HomeController::class, 'project'])->name('projects.show');
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog.index');
 Route::get('/blog/{post:slug}', [HomeController::class, 'post'])->name('blog.show');
+
+Route::middleware(['auth'])->prefix('admin/pdf')->name('admin.pdf.')->group(function () {
+    Route::get('/contact-requests/{contactRequest}', [PdfExportController::class, 'contactRequest'])->name('contact-request');
+    Route::get('/projects/{project}', [PdfExportController::class, 'project'])->name('project');
+});

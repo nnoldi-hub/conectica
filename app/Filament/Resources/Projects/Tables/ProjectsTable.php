@@ -2,9 +2,13 @@
 
 namespace App\Filament\Resources\Projects\Tables;
 
+use App\Filament\Exports\ProjectExporter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\ExportAction;
+use Filament\Actions\ExportBulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -47,11 +51,21 @@ class ProjectsTable
             ->filters([
                 //
             ])
+            ->headerActions([
+                ExportAction::make()
+                    ->label('Export CSV')
+                    ->exporter(ProjectExporter::class)
+                    ->formats([ExportFormat::Csv]),
+            ])
             ->recordActions([
                 EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
+                    ExportBulkAction::make()
+                        ->label('Export CSV')
+                        ->exporter(ProjectExporter::class)
+                        ->formats([ExportFormat::Csv]),
                     DeleteBulkAction::make(),
                 ]),
             ]);
