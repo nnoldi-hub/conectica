@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
+// Fallback autoloader for packages that could not be installed via
+// Composer on hosts where escapeshellarg/escapeshellcmd are disabled
+// (Composer cannot run there at all). Only engages when Composer itself
+// does not know these packages are installed, so it is a no-op once a
+// normal `composer install` succeeds.
+if (! class_exists(\Composer\InstalledVersions::class)
+    || ! \Composer\InstalledVersions::isInstalled('dompdf/dompdf')) {
+    require __DIR__.'/vendor-extra-autoload.php';
+}
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
