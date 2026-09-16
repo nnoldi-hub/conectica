@@ -63,10 +63,10 @@
                             <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
                         </svg>
                     </summary>
-                    <nav class="absolute right-0 top-14 z-20 w-64 rounded-2xl border border-white/10 bg-slate-900 p-3 text-sm text-slate-200 shadow-2xl shadow-black/40">
-                        <a href="{{ route('services.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-white/5 hover:text-cyan-300">Servicii</a>
-                        <a href="{{ route('projects.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-white/5 hover:text-cyan-300">Proiecte</a>
-                        <a href="{{ route('blog.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-white/5 hover:text-cyan-300">Blog</a>
+                    <nav class="absolute right-0 top-14 z-20 w-64 rounded-2xl border border-slate-200 bg-white p-3 text-sm text-slate-700 shadow-2xl shadow-slate-950/10">
+                        <a href="{{ route('services.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-slate-100 hover:text-cyan-600">Servicii</a>
+                        <a href="{{ route('projects.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-slate-100 hover:text-cyan-600">Proiecte</a>
+                        <a href="{{ route('blog.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-slate-100 hover:text-cyan-600">Blog</a>
                         <a href="{{ route('contact.create') }}" class="mt-2 block rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300">Contact</a>
                     </nav>
                 </details>
