@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PostCategories\Tables;
 
+use App\Filament\Resources\PostCategories\PostCategoryResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -31,11 +32,13 @@ class PostCategoriesTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->visible(fn ($record): bool => PostCategoryResource::canEdit($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->visible(fn (): bool => auth()->user()?->canDeleteContent() ?? false),
                 ]),
             ]);
     }

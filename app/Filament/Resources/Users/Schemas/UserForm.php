@@ -22,11 +22,13 @@ class UserForm
                     ->unique(ignoreRecord: true),
                 Select::make('role')
                     ->options([
-                        'super_admin' => 'SuperAdmin',
+                        'admin' => 'Admin',
+                        'manager' => 'Manager',
                         'editor' => 'Editor',
-                        'analyst' => 'Analyst',
+                        'viewer' => 'Viewer',
                     ])
-                    ->required(),
+                    ->required()
+                    ->helperText('Admin: acces complet. Manager: editeaza si publica continut, vede cererile de contact. Editor: creeaza/editeaza continut, dar nu poate publica. Viewer: doar vizualizare.'),
                 DateTimePicker::make('email_verified_at'),
                 TextInput::make('password')
                     ->password()

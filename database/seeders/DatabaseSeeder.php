@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Conectica IT',
             'email' => 'admin@conectica-it.ro',
             'is_admin' => true,
-            'role' => 'super_admin',
+            'role' => 'admin',
         ]);
 
         foreach ([

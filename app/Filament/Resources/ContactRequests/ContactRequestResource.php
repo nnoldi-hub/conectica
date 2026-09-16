@@ -52,12 +52,12 @@ class ContactRequestResource extends Resource
 
     public static function canEdit($record): bool
     {
-        return auth()->user()?->canManageContent() ?? false;
+        return auth()->user()?->canManageContactRequests() ?? false;
     }
 
     public static function canDelete($record): bool
     {
-        return auth()->user()?->isSuperAdmin() ?? false;
+        return auth()->user()?->canDeleteContent() ?? false;
     }
 
     public static function form(Schema $schema): Schema

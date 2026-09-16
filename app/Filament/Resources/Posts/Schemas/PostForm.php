@@ -48,7 +48,11 @@ class PostForm
                     ->maxLength(500),
                 DateTimePicker::make('published_at'),
                 Toggle::make('is_published')
-                    ->required(),
+                    ->required()
+                    ->disabled(fn (): bool => ! (auth()->user()?->canPublishContent() ?? false))
+                    ->helperText(fn (): ?string => (auth()->user()?->canPublishContent() ?? false)
+                        ? null
+                        : 'Nu ai permisiunea de a publica. Articolul ramane in asteptare pana e aprobat de un manager sau admin.'),
             ]);
     }
 }

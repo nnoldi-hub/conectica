@@ -110,7 +110,11 @@ class ProjectForm
                             ->required(),
                         Toggle::make('is_published')
                             ->label('Publicat')
-                            ->required(),
+                            ->required()
+                            ->disabled(fn (): bool => ! (auth()->user()?->canPublishContent() ?? false))
+                            ->helperText(fn (): ?string => (auth()->user()?->canPublishContent() ?? false)
+                                ? null
+                                : 'Nu ai permisiunea de a publica. Proiectul ramane in asteptare pana e aprobat de un manager sau admin.'),
                     ]),
             ]);
     }

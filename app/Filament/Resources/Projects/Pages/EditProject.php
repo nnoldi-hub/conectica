@@ -11,6 +11,15 @@ class EditProject extends EditRecord
 {
     protected static string $resource = ProjectResource::class;
 
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if (! (auth()->user()?->canPublishContent() ?? false)) {
+            $data['is_published'] = $this->record->is_published;
+        }
+
+        return $data;
+    }
+
     protected function getHeaderActions(): array
     {
         return [
@@ -20,7 +29,8 @@ class EditProject extends EditRecord
                 ->color('gray')
                 ->url(fn (): string => route('admin.pdf.project', $this->record))
                 ->openUrlInNewTab(),
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->visible(fn (): bool => ProjectResource::canDelete($this->getRecord())),
         ];
     }
 }

@@ -8,4 +8,13 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateService extends CreateRecord
 {
     protected static string $resource = ServiceResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        if (! (auth()->user()?->canPublishContent() ?? false)) {
+            $data['is_published'] = false;
+        }
+
+        return $data;
+    }
 }

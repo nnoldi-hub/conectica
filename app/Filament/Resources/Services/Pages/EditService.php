@@ -10,10 +10,20 @@ class EditService extends EditRecord
 {
     protected static string $resource = ServiceResource::class;
 
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if (! (auth()->user()?->canPublishContent() ?? false)) {
+            $data['is_published'] = $this->record->is_published;
+        }
+
+        return $data;
+    }
+
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->visible(fn (): bool => ServiceResource::canDelete($this->getRecord())),
         ];
     }
 }

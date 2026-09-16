@@ -39,7 +39,7 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->is_admin || in_array($this->role, ['super_admin', 'editor', 'analyst'], true);
+        return $this->is_admin || in_array($this->role, ['admin', 'manager', 'editor', 'viewer'], true);
     }
 
     /**
@@ -48,16 +48,16 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
      */
     protected function scopeCanAccessAdminPanel(Builder $query): void
     {
-        $query->where('is_admin', true)->orWhereIn('role', ['super_admin', 'editor', 'analyst']);
+        $query->where('is_admin', true)->orWhereIn('role', ['admin', 'manager', 'editor', 'viewer']);
     }
 
     /**
      * Narrower recipient list for content-related notifications (new
-     * project, new post) - excludes read-only analyst accounts.
+     * project, new post) - excludes read-only viewer accounts.
      */
     protected function scopeCanManageContentUsers(Builder $query): void
     {
-        $query->where('is_admin', true)->orWhereIn('role', ['super_admin', 'editor']);
+        $query->where('is_admin', true)->orWhereIn('role', ['admin', 'manager', 'editor']);
     }
 
     public function getAppAuthenticationSecret(): ?string
@@ -76,28 +76,77 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
         return $this->email;
     }
 
-    public function isSuperAdmin(): bool
+    /**
+     * Acces complet: poate sterge, edita, publica si poate gestiona utilizatori.
+     */
+    public function isAdmin(): bool
     {
-        return $this->is_admin || $this->role === 'super_admin';
+        return $this->is_admin || $this->role === 'admin';
     }
 
+    /**
+     * Poate edita si publica continut (proiecte, articole, servicii) si
+     * poate gestiona cererile de contact, dar nu poate sterge utilizatori.
+     */
+    public function isManager(): bool
+    {
+        return $this->role === 'manager';
+    }
+
+    /**
+     * Poate crea si edita continut, dar nu poate publica si nu poate sterge.
+     */
     public function isEditor(): bool
     {
         return $this->role === 'editor';
     }
 
-    public function isAnalyst(): bool
+    /**
+     * Doar vizualizare, fara nicio actiune de creare/editare/stergere.
+     */
+    public function isViewer(): bool
     {
-        return $this->role === 'analyst';
+        return $this->role === 'viewer';
     }
 
+    /**
+     * Poate crea si edita continut (proiecte, articole, servicii, categorii,
+     * social links, biblioteca media).
+     */
     public function canManageContent(): bool
     {
-        return $this->isSuperAdmin() || $this->isEditor();
+        return $this->isAdmin() || $this->isManager() || $this->isEditor();
+    }
+
+    /**
+     * Poate schimba statusul de publicare al continutului. Editorii pot
+     * crea si edita, dar nu pot publica - continutul lor ramane in asteptare
+     * pana e aprobat de un manager sau admin.
+     */
+    public function canPublishContent(): bool
+    {
+        return $this->isAdmin() || $this->isManager();
+    }
+
+    /**
+     * Poate sterge continut (proiecte, articole, servicii, cereri de contact).
+     * Rezervat strict adminilor.
+     */
+    public function canDeleteContent(): bool
+    {
+        return $this->isAdmin();
+    }
+
+    /**
+     * Poate vedea si actualiza cererile de contact (status, note).
+     */
+    public function canManageContactRequests(): bool
+    {
+        return $this->isAdmin() || $this->isManager();
     }
 
     public function canManageUsers(): bool
     {
-        return $this->isSuperAdmin();
+        return $this->isAdmin();
     }
 }

@@ -13,7 +13,8 @@ class EditPostCategory extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->visible(fn (): bool => PostCategoryResource::canDelete($this->getRecord())),
         ];
     }
 }

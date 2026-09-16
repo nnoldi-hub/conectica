@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\SocialLinks\Tables;
 
+use App\Filament\Resources\SocialLinks\SocialLinkResource;
 use App\Models\SocialLink;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -46,11 +47,13 @@ class SocialLinksTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->visible(fn ($record): bool => SocialLinkResource::canEdit($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->visible(fn (): bool => auth()->user()?->canDeleteContent() ?? false),
                 ]),
             ]);
     }

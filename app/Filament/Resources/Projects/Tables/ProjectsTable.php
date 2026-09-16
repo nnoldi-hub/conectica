@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Projects\Tables;
 
 use App\Filament\Exports\ProjectExporter;
+use App\Filament\Resources\Projects\ProjectResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -58,7 +59,8 @@ class ProjectsTable
                     ->formats([ExportFormat::Csv]),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->visible(fn ($record): bool => ProjectResource::canEdit($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -66,7 +68,8 @@ class ProjectsTable
                         ->label('Export CSV')
                         ->exporter(ProjectExporter::class)
                         ->formats([ExportFormat::Csv]),
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->visible(fn (): bool => auth()->user()?->canDeleteContent() ?? false),
                 ]),
             ]);
     }

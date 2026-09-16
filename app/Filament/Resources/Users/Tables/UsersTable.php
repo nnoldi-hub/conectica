@@ -21,6 +21,20 @@ class UsersTable
                     ->searchable(),
                 TextColumn::make('role')
                     ->badge()
+                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                        'admin' => 'Admin',
+                        'manager' => 'Manager',
+                        'editor' => 'Editor',
+                        'viewer' => 'Viewer',
+                        default => $state ?? '-',
+                    })
+                    ->color(fn (?string $state): string => match ($state) {
+                        'admin' => 'danger',
+                        'manager' => 'warning',
+                        'editor' => 'info',
+                        'viewer' => 'gray',
+                        default => 'gray',
+                    })
                     ->sortable(),
                 TextColumn::make('email_verified_at')
                     ->dateTime()

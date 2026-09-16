@@ -57,7 +57,7 @@ class ProjectResource extends Resource
 
     public static function canDelete($record): bool
     {
-        return auth()->user()?->isSuperAdmin() ?? false;
+        return auth()->user()?->canDeleteContent() ?? false;
     }
 
     public static function form(Schema $schema): Schema

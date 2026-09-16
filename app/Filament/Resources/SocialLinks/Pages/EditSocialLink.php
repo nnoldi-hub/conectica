@@ -13,7 +13,8 @@ class EditSocialLink extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->visible(fn (): bool => SocialLinkResource::canDelete($this->getRecord())),
         ];
     }
 }

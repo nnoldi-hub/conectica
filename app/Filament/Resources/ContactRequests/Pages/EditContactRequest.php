@@ -20,7 +20,8 @@ class EditContactRequest extends EditRecord
                 ->color('gray')
                 ->url(fn (): string => route('admin.pdf.contact-request', $this->record))
                 ->openUrlInNewTab(),
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->visible(fn (): bool => ContactRequestResource::canDelete($this->getRecord())),
         ];
     }
 }

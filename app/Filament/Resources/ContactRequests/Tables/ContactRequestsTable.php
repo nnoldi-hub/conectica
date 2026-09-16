@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ContactRequests\Tables;
 
 use App\Filament\Exports\ContactRequestExporter;
+use App\Filament\Resources\ContactRequests\ContactRequestResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -34,7 +35,8 @@ class ContactRequestsTable
                     ->formats([ExportFormat::Csv]),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->visible(fn ($record): bool => ContactRequestResource::canEdit($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -42,7 +44,8 @@ class ContactRequestsTable
                         ->label('Export CSV')
                         ->exporter(ContactRequestExporter::class)
                         ->formats([ExportFormat::Csv]),
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->visible(fn (): bool => auth()->user()?->canDeleteContent() ?? false),
                 ]),
             ]);
     }

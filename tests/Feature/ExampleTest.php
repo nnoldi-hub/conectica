@@ -108,19 +108,29 @@ class ExampleTest extends TestCase
     {
         $this->seed();
 
+        $manager = User::factory()->create(['role' => 'manager']);
         $editor = User::factory()->create(['role' => 'editor']);
-        $analyst = User::factory()->create(['role' => 'analyst']);
+        $viewer = User::factory()->create(['role' => 'viewer']);
         $guest = User::factory()->create();
 
+        $this->assertTrue($manager->canAccessPanel(Filament::getPanel('admin')));
         $this->assertTrue($editor->canAccessPanel(Filament::getPanel('admin')));
-        $this->assertTrue($analyst->canAccessPanel(Filament::getPanel('admin')));
+        $this->assertTrue($viewer->canAccessPanel(Filament::getPanel('admin')));
         $this->assertFalse($guest->canAccessPanel(Filament::getPanel('admin')));
+
+        $this->actingAs($manager);
+        $this->assertTrue(ProjectResource::canCreate());
+        $this->assertTrue($manager->canPublishContent());
+        $this->assertFalse($manager->canDeleteContent());
+        $this->assertFalse(UserResource::canViewAny());
 
         $this->actingAs($editor);
         $this->assertTrue(ProjectResource::canCreate());
+        $this->assertFalse($editor->canPublishContent());
+        $this->assertFalse($editor->canDeleteContent());
         $this->assertFalse(UserResource::canViewAny());
 
-        $this->actingAs($analyst);
+        $this->actingAs($viewer);
         $this->assertFalse(ProjectResource::canCreate());
         $this->assertFalse(UserResource::canViewAny());
     }
