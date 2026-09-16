@@ -16,7 +16,14 @@
         @if ($project->image_path)
             <img loading="lazy" src="{{ Storage::disk('public')->url($project->image_path) }}" alt="{{ $project->title }}" class="mt-8 aspect-video max-h-[300px] w-full rounded-3xl object-cover md:mt-12 md:max-h-none">
         @endif
-        <p class="mt-12 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400 md:mt-16">Proiect</p>
+
+        @if ($project->client_name || $project->industry)
+            <p class="mt-12 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400 md:mt-16">
+                {{ collect([$project->client_name, $project->industry])->filter()->implode(' · ') ?: 'Proiect' }}
+            </p>
+        @else
+            <p class="mt-12 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400 md:mt-16">Proiect</p>
+        @endif
         <h1 class="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">{{ $project->title }}</h1>
         <p class="mt-6 text-lg leading-8 text-slate-300 md:mt-8 md:text-xl md:leading-9">{{ $project->summary }}</p>
         <div class="mt-10 flex flex-wrap gap-2">
@@ -34,5 +41,53 @@
                 @endif
             </div>
         @endif
+
+        @if ($project->challenge || $project->solution || $project->results)
+            <div class="mt-16 grid gap-6 md:mt-20 md:grid-cols-3">
+                @if ($project->challenge)
+                    <div class="min-w-0 rounded-3xl border border-white/10 bg-white/[0.04] p-8">
+                        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">Provocarea</p>
+                        <p class="mt-4 leading-7 text-slate-300">{{ $project->challenge }}</p>
+                    </div>
+                @endif
+                @if ($project->solution)
+                    <div class="min-w-0 rounded-3xl border border-white/10 bg-white/[0.04] p-8">
+                        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">Solutia</p>
+                        <p class="mt-4 leading-7 text-slate-300">{{ $project->solution }}</p>
+                    </div>
+                @endif
+                @if ($project->results)
+                    <div class="min-w-0 rounded-3xl border border-cyan-400/30 bg-cyan-400/5 p-8">
+                        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">Rezultatul</p>
+                        <p class="mt-4 leading-7 text-slate-300">{{ $project->results }}</p>
+                    </div>
+                @endif
+            </div>
+        @endif
+
+        @if (! empty($project->gallery))
+            <div class="mt-16 md:mt-20">
+                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">Galerie</p>
+                <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                    @foreach ($project->gallery as $image)
+                        <img loading="lazy" src="{{ Storage::disk('public')->url($image) }}" alt="{{ $project->title }} - imagine {{ $loop->iteration }}" class="aspect-video w-full rounded-2xl object-cover">
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        @if ($project->testimonial_quote)
+            <blockquote class="mt-16 rounded-3xl border border-white/10 bg-white/[0.04] p-8 md:mt-20 md:p-10">
+                <p class="text-xl font-medium leading-8 text-white md:text-2xl md:leading-9">&ldquo;{{ $project->testimonial_quote }}&rdquo;</p>
+                @if ($project->testimonial_author)
+                    <footer class="mt-6 text-sm font-semibold text-cyan-300">{{ $project->testimonial_author }}</footer>
+                @endif
+            </blockquote>
+        @endif
+
+        <div class="mt-16 flex flex-col items-start gap-4 rounded-3xl border border-cyan-400/30 bg-cyan-400/5 p-8 md:mt-20 sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-lg font-semibold text-white">Vrei un proiect construit la fel de atent pentru afacerea ta?</p>
+            <a href="{{ route('contact.create') }}" class="w-full rounded-full bg-cyan-400 px-6 py-3 text-center font-semibold text-slate-950 transition hover:bg-cyan-300 sm:w-auto">Pornim o conversatie</a>
+        </div>
     </main>
 @endsection

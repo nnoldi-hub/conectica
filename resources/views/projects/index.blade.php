@@ -17,7 +17,12 @@
                         <img loading="lazy" src="{{ Storage::disk('public')->url($project->image_path) }}" alt="{{ $project->title }}" class="mb-8 aspect-video max-h-[300px] w-full rounded-2xl object-cover md:max-h-none">
                     @endif
                     <p class="text-sm text-cyan-300">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</p>
-                    <h2 class="mt-8 text-2xl font-semibold text-white">{{ $project->title }}</h2>
+                    @if ($project->client_name || $project->industry)
+                        <p class="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500">
+                            {{ collect([$project->client_name, $project->industry])->filter()->implode(' · ') }}
+                        </p>
+                    @endif
+                    <h2 class="mt-6 text-2xl font-semibold text-white">{{ $project->title }}</h2>
                     <p class="mt-4 max-w-xl leading-7 text-slate-400">{{ $project->summary }}</p>
                     <div class="mt-6 flex flex-wrap gap-2">
                         @foreach ($project->technologies ?? [] as $technology)

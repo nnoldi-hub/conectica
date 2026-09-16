@@ -16,19 +16,24 @@ class ProjectsTable
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label('Titlu')
                     ->searchable(),
-                TextColumn::make('slug')
+                TextColumn::make('client_name')
+                    ->label('Client')
+                    ->placeholder('—')
                     ->searchable(),
-                TextColumn::make('demo_url')
-                    ->searchable(),
-                TextColumn::make('github_url')
-                    ->searchable(),
+                TextColumn::make('industry')
+                    ->label('Domeniu')
+                    ->placeholder('—'),
                 TextColumn::make('sort_order')
+                    ->label('Ordine')
                     ->numeric()
                     ->sortable(),
                 IconColumn::make('is_featured')
+                    ->label('Recomandat')
                     ->boolean(),
                 IconColumn::make('is_published')
+                    ->label('Publicat')
                     ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()

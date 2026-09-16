@@ -59,9 +59,15 @@
                     <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400">Cu ce te ajutam</p>
                     <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-10 lg:grid-cols-3">
                         @foreach ($services as $service)
-                            <article class="min-w-0 rounded-2xl border border-white/10 bg-white/[0.04] p-7">
-                                <h2 class="text-xl font-semibold text-white">{{ $service->title }}</h2>
+                            <article class="flex min-w-0 flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-7 transition hover:border-cyan-400/40">
+                                <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
+                                    @svg($service->icon ?: 'heroicon-o-sparkles', 'h-6 w-6')
+                                </span>
+                                <h2 class="mt-5 text-xl font-semibold text-white">{{ $service->title }}</h2>
                                 <p class="mt-4 text-base leading-7 text-slate-400 md:text-lg">{{ $service->description }}</p>
+                                <a href="{{ route('services.index') }}" class="mt-6 inline-flex items-center text-sm font-semibold text-cyan-300 transition hover:text-cyan-200">
+                                    Afla mai multe <span class="ml-2" aria-hidden="true">-&gt;</span>
+                                </a>
                             </article>
                         @endforeach
                     </div>

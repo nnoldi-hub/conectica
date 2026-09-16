@@ -15,14 +15,21 @@ class ServicesTable
     {
         return $table
             ->columns([
+                IconColumn::make('icon')
+                    ->label('')
+                    ->icon(fn (?string $state): string => $state ?: 'heroicon-o-sparkles'),
                 TextColumn::make('title')
+                    ->label('Titlu')
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
+                TextColumn::make('price_note')
+                    ->label('Pret')
+                    ->placeholder('—'),
                 TextColumn::make('sort_order')
+                    ->label('Ordine')
                     ->numeric()
                     ->sortable(),
                 IconColumn::make('is_published')
+                    ->label('Publicat')
                     ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()
