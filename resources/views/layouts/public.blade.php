@@ -47,11 +47,19 @@
                         </span>
                     </span>
                 </a>
+                @php
+                    $navLinks = [
+                        ['route' => 'services.index', 'pattern' => 'services.*', 'label' => 'Servicii'],
+                        ['route' => 'projects.index', 'pattern' => 'projects.*', 'label' => 'Proiecte'],
+                        ['route' => 'blog.index', 'pattern' => 'blog.*', 'label' => 'Blog'],
+                    ];
+                    $isContactActive = request()->routeIs('contact.*');
+                @endphp
                 <nav class="desktop-nav items-center gap-6 text-sm text-slate-300">
-                    <a href="{{ route('services.index') }}" class="transition hover:text-white">Servicii</a>
-                    <a href="{{ route('projects.index') }}" class="transition hover:text-white">Proiecte</a>
-                    <a href="{{ route('blog.index') }}" class="transition hover:text-white">Blog</a>
-                    <a href="{{ route('contact.create') }}" class="rounded-full border border-cyan-400/40 px-4 py-2 font-medium text-cyan-300 transition hover:border-cyan-300 hover:text-cyan-200">Contact</a>
+                    @foreach ($navLinks as $link)
+                        <a href="{{ route($link['route']) }}" class="transition {{ request()->routeIs($link['pattern']) ? 'font-semibold text-cyan-300' : 'hover:text-white' }}">{{ $link['label'] }}</a>
+                    @endforeach
+                    <a href="{{ route('contact.create') }}" class="rounded-full border px-4 py-2 font-medium transition {{ $isContactActive ? 'border-cyan-400 bg-cyan-400 text-slate-950' : 'border-cyan-400/40 text-cyan-300 hover:border-cyan-300 hover:text-cyan-200' }}">Contact</a>
                 </nav>
                 <details class="mobile-menu group relative">
                     <summary class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-xl border border-white/10 text-slate-200 transition hover:border-cyan-400/50 hover:text-cyan-300 [&::-webkit-details-marker]:hidden">
@@ -64,10 +72,10 @@
                         </svg>
                     </summary>
                     <nav class="absolute right-0 top-14 z-20 w-64 rounded-2xl border border-slate-200 bg-white p-3 text-sm text-slate-700 shadow-2xl shadow-slate-950/10">
-                        <a href="{{ route('services.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-slate-100 hover:text-cyan-600">Servicii</a>
-                        <a href="{{ route('projects.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-slate-100 hover:text-cyan-600">Proiecte</a>
-                        <a href="{{ route('blog.index') }}" class="block rounded-xl px-4 py-3 transition hover:bg-slate-100 hover:text-cyan-600">Blog</a>
-                        <a href="{{ route('contact.create') }}" class="mt-2 block rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300">Contact</a>
+                        @foreach ($navLinks as $link)
+                            <a href="{{ route($link['route']) }}" class="block rounded-xl px-4 py-3 transition {{ request()->routeIs($link['pattern']) ? 'bg-cyan-50 font-semibold text-cyan-600' : 'hover:bg-slate-100 hover:text-cyan-600' }}">{{ $link['label'] }}</a>
+                        @endforeach
+                        <a href="{{ route('contact.create') }}" class="mt-2 block rounded-xl px-4 py-3 font-semibold transition {{ $isContactActive ? 'bg-cyan-500 text-white' : 'bg-cyan-400 text-slate-950 hover:bg-cyan-300' }}">Contact</a>
                     </nav>
                 </details>
             </div>
