@@ -10,6 +10,7 @@ use App\Models\Project;
 use App\Models\Service;
 use App\Models\SocialLink;
 use App\Models\User;
+use App\Observers\AdminNotificationObserver;
 use App\Observers\AuditLogObserver;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -34,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
     {
         foreach ([ContactRequest::class, Media::class, Post::class, PostCategory::class, Project::class, Service::class, SocialLink::class, User::class] as $model) {
             $model::observe(AuditLogObserver::class);
+        }
+
+        foreach ([Project::class, Post::class] as $model) {
+            $model::observe(AdminNotificationObserver::class);
         }
 
         RateLimiter::for('contact', function (Request $request) {

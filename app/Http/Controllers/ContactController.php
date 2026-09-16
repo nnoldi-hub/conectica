@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactRequestConfirmation;
 use App\Mail\ContactRequestReceived;
 use App\Models\ContactRequest;
+use App\Models\EmailLog;
+use App\Models\User;
+use App\Notifications\NewContactRequestReceived;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ContactController extends Controller
@@ -43,9 +49,50 @@ class ContactController extends Controller
         unset($validated['privacy_accepted']);
         $contactRequest = ContactRequest::query()->create($validated);
 
-        Mail::to(config('mail.notifications_email'))->queue(new ContactRequestReceived($contactRequest));
+        $this->sendTracked(
+            mailable: new ContactRequestReceived($contactRequest),
+            to: config('mail.notifications_email'),
+            subject: 'Solicitare noua de contact de la '.$contactRequest->name,
+            contactRequest: $contactRequest,
+        );
+
+        $this->sendTracked(
+            mailable: new ContactRequestConfirmation($contactRequest),
+            to: $contactRequest->email,
+            subject: 'Am primit mesajul tau - Conectica IT',
+            contactRequest: $contactRequest,
+        );
+
+        Notification::send(
+            User::query()->canAccessAdminPanel()->get(),
+            new NewContactRequestReceived($contactRequest),
+        );
 
         return to_route('contact.create')->with('contact_sent', 'Multumim! Mesajul tau a fost trimis.');
+    }
+
+    /**
+     * Queue a trackable mailable and record it in the email log so it can be
+     * followed up in the admin "Comunicare" section (sent / opened status).
+     */
+    private function sendTracked(object $mailable, string $to, string $subject, ContactRequest $contactRequest): void
+    {
+        $token = (string) Str::uuid();
+
+        EmailLog::query()->create([
+            'contact_request_id' => $contactRequest->id,
+            'mailable' => $mailable::class,
+            'to_email' => $to,
+            'subject' => $subject,
+            'status' => 'queued',
+            'tracking_token' => $token,
+        ]);
+
+        if (method_exists($mailable, 'withTrackingToken')) {
+            $mailable->withTrackingToken($token);
+        }
+
+        Mail::to($to)->queue($mailable);
     }
 
     private function looksLikeSpam(string $encryptedRenderedAt): bool

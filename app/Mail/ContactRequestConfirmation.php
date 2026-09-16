@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ContactRequestReceived extends Mailable
+class ContactRequestConfirmation extends Mailable
 {
     use Queueable, SerializesModels, TracksEmailDelivery;
 
@@ -19,14 +19,17 @@ class ContactRequestReceived extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Solicitare noua de contact de la '.$this->contactRequest->name,
+            subject: 'Am primit mesajul tau - Conectica IT',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            markdown: 'mail.contact-request-received',
+            markdown: 'mail.contact-request-confirmation',
+            with: [
+                'trackingToken' => $this->trackingToken,
+            ],
         );
     }
 }

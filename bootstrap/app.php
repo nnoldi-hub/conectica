@@ -2,10 +2,15 @@
 
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\TrackPageViews;
+use App\Models\User;
+use App\Notifications\SystemErrorOccurred;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -23,4 +28,33 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+
+        $exceptions->report(function (Throwable $e): void {
+            if ($e instanceof HttpExceptionInterface && $e->getStatusCode() < 500) {
+                return;
+            }
+
+            // Throttle to one notification per unique error per 10 minutes,
+            // so a repeating error does not flood the admin panel.
+            $throttleKey = 'system-error-notified:'.md5($e::class.$e->getMessage());
+
+            if (Cache::has($throttleKey)) {
+                return;
+            }
+
+            Cache::put($throttleKey, true, now()->addMinutes(10));
+
+            try {
+                Notification::send(
+                    User::query()->canAccessAdminPanel()->get(),
+                    new SystemErrorOccurred(
+                        exceptionClass: $e::class,
+                        message: $e->getMessage(),
+                        location: $e->getFile().':'.$e->getLine(),
+                    ),
+                );
+            } catch (Throwable) {
+                // Never let notification delivery cause a secondary failure.
+            }
+        });
     })->create();

@@ -5,6 +5,9 @@ namespace App\Providers\Filament;
 use App\Filament\Pages\Dashboard;
 use App\Filament\Widgets\AdminStatsOverview;
 use App\Filament\Widgets\AnalyticsOverview;
+use App\Filament\Widgets\CommunicationOverview;
+use App\Filament\Widgets\ContactRequestsByServiceChart;
+use App\Filament\Widgets\ContactRequestsPerDayChart;
 use App\Filament\Widgets\QuickActions;
 use App\Filament\Widgets\SeoPerformanceOverview;
 use App\Filament\Widgets\SystemOverview;
@@ -42,6 +45,8 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Conectica IT · Arhitectură. Claritate. Control.')
             ->brandLogo(asset('logo_symbol.png'))
             ->brandLogoHeight('2.5rem')
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
             ->colors([
                 'primary' => Color::Cyan,
             ])
@@ -59,6 +64,9 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 AccountWidget::class,
                 AdminStatsOverview::class,
+                CommunicationOverview::class,
+                ContactRequestsPerDayChart::class,
+                ContactRequestsByServiceChart::class,
                 QuickActions::class,
                 SystemOverview::class,
                 SeoPerformanceOverview::class,
