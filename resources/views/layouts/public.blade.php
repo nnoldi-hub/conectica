@@ -75,7 +75,7 @@
                         @foreach ($navLinks as $link)
                             <a href="{{ route($link['route']) }}" class="block rounded-xl px-4 py-3 transition {{ request()->routeIs($link['pattern']) ? 'bg-cyan-50 font-semibold text-cyan-600' : 'hover:bg-slate-100 hover:text-cyan-600' }}">{{ $link['label'] }}</a>
                         @endforeach
-                        <a href="{{ route('contact.create') }}" class="mt-2 block rounded-xl px-4 py-3 font-semibold transition {{ $isContactActive ? 'bg-cyan-500 text-white' : 'bg-cyan-400 text-slate-950 hover:bg-cyan-300' }}">Contact</a>
+                        <a href="{{ route('contact.create') }}" class="mt-2 block rounded-xl px-4 py-3 font-semibold transition {{ $isContactActive ? 'bg-cyan-500 text-white' : 'text-slate-700 hover:bg-slate-100 hover:text-cyan-600' }}">Contact</a>
                     </nav>
                 </details>
             </div>
