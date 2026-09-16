@@ -134,7 +134,7 @@ class SystemOverview extends StatsOverviewWidget
 
         $hoursSinceBackup = $latestTime->diffInHours(now());
 
-        return Stat::make('Ultimul backup', $latestTime->diffForHumans())
+        return Stat::make('Ultimul backup', $latestTime->locale('ro')->diffForHumans())
             ->description($this->formatBytes($totalSize).' total, '.$files->count().' fisiere pastrate')
             ->color($hoursSinceBackup > 48 ? 'danger' : ($hoursSinceBackup > 26 ? 'warning' : 'success'));
     }

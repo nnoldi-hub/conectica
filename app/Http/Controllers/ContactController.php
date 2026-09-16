@@ -77,6 +77,15 @@ class ContactController extends Controller
      */
     private function sendTracked(object $mailable, string $to, string $subject, ContactRequest $contactRequest): void
     {
+        if (trim($to) === '') {
+            Log::error('Nu s-a putut trimite emailul: adresa destinatarului este goala.', [
+                'mailable' => $mailable::class,
+                'contact_request_id' => $contactRequest->id,
+            ]);
+
+            return;
+        }
+
         $token = (string) Str::uuid();
 
         EmailLog::query()->create([
