@@ -25,6 +25,23 @@
         <h1 class="mt-6 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">{{ $post->title }}</h1>
         <p class="mt-6 text-lg leading-8 text-slate-300 md:mt-8 md:text-xl md:leading-9">{{ $post->excerpt }}</p>
         <div class="prose prose-invert mt-12 max-w-none whitespace-pre-line leading-8 text-slate-300">{{ $post->body }}</div>
+
+        @php
+            $facebookShareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode(route('blog.show', $post)) . '&quote=' . urlencode($post->title . ' | Conectica IT');
+        @endphp
+
+        <div class="mt-12 border-t border-white/10 pt-8">
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Distribuie articolul</p>
+            <div class="mt-4 flex flex-wrap gap-3">
+                <a href="{{ $facebookShareUrl }}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center rounded-full bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300">
+                    Distribuie pe Facebook
+                </a>
+                <a href="{{ route('blog.index') }}" class="inline-flex items-center justify-center rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/30">
+                    Înapoi la blog
+                </a>
+            </div>
+        </div>
+
         @if ($post->tags)
             <div class="mt-12 flex flex-wrap gap-2 border-t border-white/10 pt-8">
                 @foreach ($post->tags as $tag)

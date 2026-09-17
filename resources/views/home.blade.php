@@ -93,6 +93,57 @@
                     </div>
                 </section>
             @endif
+
+            @php($facebookLink = $socialLinks->firstWhere('platform', 'facebook'))
+            @if ($facebookLink)
+                <section class="border-y border-white/10 bg-slate-900/40">
+                    <div class="mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[1fr_.9fr] lg:px-8">
+                        <div class="min-w-0">
+                            <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400">Social proof</p>
+                            <h2 class="mt-4 text-3xl font-semibold tracking-tight text-white md:text-4xl">Urmărește-ne și pe Facebook</h2>
+                            <p class="mt-5 max-w-xl text-base leading-7 text-slate-400 md:text-lg">
+                                Case studies, perspective practice, actualizări din proiecte reale și idei utile pentru business-ul digital din România.
+                            </p>
+                            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                                <a href="{{ $facebookLink->url }}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300">
+                                    Pagina Facebook
+                                </a>
+                                <a href="{{ route('blog.index') }}" class="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 font-semibold text-white transition hover:border-white/30">
+                                    Vezi articolele
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="rounded-3xl border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-cyan-950/20 md:p-6">
+                            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="flex h-11 w-11 items-center justify-center rounded-full bg-cyan-400/10 text-lg font-semibold text-cyan-300">f</div>
+                                    <div>
+                                        <p class="font-semibold text-white">Conectica IT</p>
+                                        <p class="text-xs text-slate-400">@conectica.it.ro</p>
+                                    </div>
+                                </div>
+                                <a href="{{ $facebookLink->url }}" target="_blank" rel="noreferrer noopener" class="rounded-full border border-cyan-400/40 px-3 py-1 text-xs font-semibold text-cyan-300">Urmărește</a>
+                            </div>
+
+                            <div class="mt-5 space-y-4">
+                                <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">Case study</p>
+                                    <p class="mt-2 text-sm leading-6 text-slate-300">Cum am construit Fleetly și ce am învățat din productivitatea reală a unei flote.</p>
+                                </div>
+                                <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">Arhitectură</p>
+                                    <p class="mt-2 text-sm leading-6 text-slate-300">Monolit vs. microservicii, SQL vs. procese, și când ar trebui să evoluezi un sistem.</p>
+                                </div>
+                                <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">UX</p>
+                                    <p class="mt-2 text-sm leading-6 text-slate-300">Cum faci aplicațiile interne să fie clare, rapide și acceptate de oameni din teren.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
         </main>
 
 @endsection
