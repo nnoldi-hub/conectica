@@ -94,8 +94,7 @@
                 </section>
             @endif
 
-            @php($facebookLink = $socialLinks->firstWhere('platform', 'facebook'))
-            @if ($facebookLink)
+            @if (!empty($facebookLink))
                 <section class="border-y border-white/10 bg-slate-900/40">
                     <div class="mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[1fr_.9fr] lg:px-8">
                         <div class="min-w-0">

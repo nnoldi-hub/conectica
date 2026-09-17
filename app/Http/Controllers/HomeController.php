@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Project;
 use App\Models\Service;
+use App\Models\SocialLink;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Response;
 use Illuminate\View\View as ViewResponse;
@@ -16,6 +17,7 @@ class HomeController extends Controller
         return view('home', [
             'services' => Service::query()->published()->orderBy('sort_order')->get(),
             'projects' => Project::query()->published()->where('is_featured', true)->orderBy('sort_order')->get(),
+            'facebookLink' => SocialLink::published()->where('platform', 'facebook')->first(),
         ]);
     }
 
