@@ -133,3 +133,63 @@ textarea.bg-slate-950 {
     --tw-prose-headings: #0f172a;
     --tw-prose-links: #0891b2;
 }
+
+/* Continutul articolelor de blog (randat din editorul rich text din admin). */
+.post-content p {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    text-align: left;
+}
+
+.post-content p:first-child {
+    margin-top: 0;
+}
+
+.post-content p:last-child {
+    margin-bottom: 0;
+}
+
+.post-content h2,
+.post-content h3 {
+    margin-top: 1.75em;
+    margin-bottom: 0.75em;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.post-content ul,
+.post-content ol {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    padding-left: 1.5em;
+}
+
+.post-content ul {
+    list-style-type: disc;
+}
+
+.post-content ol {
+    list-style-type: decimal;
+}
+
+.post-content li {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+}
+
+.post-content a {
+    color: #0891b2;
+    text-decoration: underline;
+}
+
+.post-content strong {
+    font-weight: 600;
+}
+
+.post-content blockquote {
+    margin: 1.5em 0;
+    padding-left: 1em;
+    border-left: 3px solid rgba(15, 23, 42, 0.2);
+    color: #475569;
+    font-style: italic;
+}

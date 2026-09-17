@@ -24,7 +24,7 @@
         </div>
         <h1 class="mt-6 text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">{{ $post->title }}</h1>
         <p class="mt-6 text-lg leading-8 text-slate-300 md:mt-8 md:text-xl md:leading-9">{{ $post->excerpt }}</p>
-        <div class="prose prose-invert mt-12 max-w-none leading-8 text-slate-300">{!! $post->body_html !!}</div>
+        <div class="prose prose-invert post-content mt-12 max-w-none leading-8 text-slate-300">{!! $post->body_html !!}</div>
 
         @php
             $facebookShareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode(route('blog.show', $post)) . '&quote=' . urlencode($post->title . ' | Conectica IT');
