@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasOptimizedImage;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -33,5 +34,47 @@ class Post extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(PostCategory::class, 'post_category_id');
+    }
+
+    /**
+     * Continutul articolului, pregatit sigur pentru afisare HTML.
+     *
+     * Articolele vechi au fost salvate ca text simplu, cu paragrafe separate
+     * prin linii goale. Cele noi vin din editorul rich text din admin si
+     * contin deja markup HTML (ex. <p>, <strong>). Acest accesor trateaza
+     * ambele cazuri si curata orice markup potential periculos.
+     */
+    protected function bodyHtml(): Attribute
+    {
+        return Attribute::make(
+            get: function (): string {
+                $body = trim((string) $this->body);
+
+                if ($body === '') {
+                    return '';
+                }
+
+                if (! str_contains($body, '<')) {
+                    $paragraphs = preg_split('/\n{2,}/', $body) ?: [];
+
+                    return collect($paragraphs)
+                        ->map(fn (string $paragraph): string => '<p>'.nl2br(e(trim($paragraph))).'</p>')
+                        ->implode('');
+                }
+
+                return $this->sanitizeBodyHtml($body);
+            },
+        );
+    }
+
+    protected function sanitizeBodyHtml(string $html): string
+    {
+        $allowedTags = '<p><br><strong><b><em><i><u><s><ul><ol><li><a><h1><h2><h3><h4><blockquote><img><span><code><pre>';
+
+        $clean = strip_tags($html, $allowedTags);
+        $clean = preg_replace('/\s+on[a-z]+\s*=\s*(["\']).*?\1/i', '', $clean) ?? $clean;
+        $clean = preg_replace('/(href|src)\s*=\s*(["\'])\s*javascript:[^"\']*\2/i', '$1="#"', $clean) ?? $clean;
+
+        return $clean;
     }
 }
