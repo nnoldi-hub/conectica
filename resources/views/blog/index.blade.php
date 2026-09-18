@@ -39,7 +39,7 @@
                     </div>
                     <h2 class="mt-8 text-2xl font-semibold text-white">{{ $post->title }}</h2>
                     <p class="mt-4 flex-1 leading-7 text-slate-400">{{ $post->excerpt }}</p>
-                    <a href="{{ route('blog.show', $post) }}" class="mt-8 text-sm font-semibold text-white transition hover:text-cyan-300">Citeste articolul <span class="ml-2" aria-hidden="true">-&gt;</span></a>
+                    <a href="{{ route('blog.show', $post) }}" data-track-event="cta_click" data-track-target="blog_list_{{ $post->slug }}" class="mt-8 text-sm font-semibold text-white transition hover:text-cyan-300">Citeste articolul <span class="ml-2" aria-hidden="true">-&gt;</span></a>
                 </article>
             @empty
                 <p class="text-slate-400">{{ $selectedCategory ? 'Nu exista articole publicate in aceasta categorie.' : 'Primele articole vor fi publicate in curand.' }}</p>

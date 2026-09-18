@@ -29,7 +29,7 @@
                             <span class="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-300">{{ $technology }}</span>
                         @endforeach
                     </div>
-                    <a href="{{ route('projects.show', $project) }}" class="mt-8 inline-flex text-sm font-semibold text-white transition hover:text-cyan-300">Vezi proiectul <span class="ml-2" aria-hidden="true">-&gt;</span></a>
+                    <a href="{{ route('projects.show', $project) }}" data-track-event="cta_click" data-track-target="projects_list_{{ $project->slug }}" class="mt-8 inline-flex text-sm font-semibold text-white transition hover:text-cyan-300">Vezi proiectul <span class="ml-2" aria-hidden="true">-&gt;</span></a>
                 </article>
             @empty
                 <p class="text-slate-400">Portofoliul va fi disponibil in curand.</p>
