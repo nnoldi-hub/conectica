@@ -53,6 +53,18 @@ class HomeController extends Controller
     {
         abort_unless($post->is_published && $post->published_at?->isPast(), Response::HTTP_NOT_FOUND);
 
-        return view('blog.show', compact('post'));
+        $relatedPosts = Post::query()
+            ->with('category')
+            ->published()
+            ->whereKeyNot($post->getKey())
+            ->when(
+                $post->post_category_id,
+                fn ($query) => $query->where('post_category_id', $post->post_category_id),
+            )
+            ->latest('published_at')
+            ->limit(3)
+            ->get();
+
+        return view('blog.show', compact('post', 'relatedPosts'));
     }
 }
