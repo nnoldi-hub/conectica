@@ -23,6 +23,10 @@ class ConversionOverview extends StatsOverviewWidget
             ->where('event_name', 'contact_submitted')
             ->where('occurred_at', '>=', $lastThirtyDays)
             ->count();
+        $ctaClicksThirtyDays = ConversionEvent::query()
+            ->where('event_name', 'cta_click')
+            ->where('occurred_at', '>=', $lastThirtyDays)
+            ->count();
         $facebookShares = ConversionEvent::query()
             ->where('event_name', 'facebook_share')
             ->where('occurred_at', '>=', $lastThirtyDays)
@@ -34,6 +38,9 @@ class ConversionOverview extends StatsOverviewWidget
             ->groupBy('path')
             ->orderByRaw('COUNT(*) DESC')
             ->value('path');
+        $conversionRate = $ctaClicksThirtyDays > 0
+            ? number_format(($contactSubmissions / $ctaClicksThirtyDays) * 100, 1).'%'
+            : 'N/A';
 
         return [
             Stat::make('Clickuri CTA / 7 zile', $ctaClicks)
@@ -45,6 +52,9 @@ class ConversionOverview extends StatsOverviewWidget
             Stat::make('Distribuiri Facebook / 30 zile', $facebookShares)
                 ->description('articole si pagini distribuite')
                 ->color('warning'),
+            Stat::make('Formulare / clickuri CTA', $conversionRate)
+                ->description('raport orientativ pe ultimele 30 de zile')
+                ->color('primary'),
             Stat::make('Pagina cu cele mai multe CTA', $topPage ?: 'Nicio conversie')
                 ->description('in ultimele 30 de zile')
                 ->color('primary'),

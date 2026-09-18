@@ -20,6 +20,21 @@ class ConversionByTargetChart extends ChartWidget
 
     protected function getData(): array
     {
+        $targetLabels = [
+            'home_services' => 'Homepage · Servicii',
+            'home_contact' => 'Homepage · Contact',
+            'home_blog' => 'Homepage · Blog',
+            'service_contact' => 'Serviciu · Contact',
+            'service_all' => 'Serviciu · Toate serviciile',
+            'service_final_contact' => 'Serviciu · CTA final',
+            'project_final_contact' => 'Proiect · CTA final',
+            'article_contact' => 'Articol · Contact',
+            'article_services' => 'Articol · Servicii',
+            'nav_contact' => 'Navigație · Contact',
+            'mobile_nav_contact' => 'Meniu mobil · Contact',
+            'footer_contact' => 'Footer · Contact',
+        ];
+
         $grouped = ConversionEvent::query()
             ->where('event_name', 'cta_click')
             ->where('occurred_at', '>=', now()->subDays(30))
@@ -38,7 +53,7 @@ class ConversionByTargetChart extends ChartWidget
                     'borderRadius' => 6,
                 ],
             ],
-            'labels' => $grouped->keys()->all(),
+            'labels' => $grouped->keys()->map(fn (string $target) => $targetLabels[$target] ?? $target)->all(),
         ];
     }
 }
