@@ -18,6 +18,7 @@ Route::post('/contact', [ContactController::class, 'store'])->middleware('thrott
 Route::get('/mail/pixel/{token}.gif', [EmailTrackingController::class, 'pixel'])->name('mail.pixel');
 Route::get('/', HomeController::class)->name('home');
 Route::get('/servicii', [HomeController::class, 'services'])->name('services.index');
+Route::get('/servicii/{service:slug}', [HomeController::class, 'service'])->name('services.show');
 Route::get('/proiecte', [HomeController::class, 'projects'])->name('projects.index');
 Route::get('/proiecte/{project:slug}', [HomeController::class, 'project'])->name('projects.show');
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog.index');

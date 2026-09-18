@@ -30,6 +30,13 @@ class HomeController extends Controller
         ]);
     }
 
+    public function service(Service $service): ViewResponse
+    {
+        abort_unless($service->is_published, Response::HTTP_NOT_FOUND);
+
+        return view('services.show', compact('service'));
+    }
+
     public function projects(): ViewResponse
     {
         return view('projects.index', [
