@@ -51,6 +51,11 @@ time {
     overflow-wrap: anywhere;
 }
 
+:where(a, button, summary, input, select, textarea):focus-visible {
+    outline: 3px solid #0891b2;
+    outline-offset: 3px;
+}
+
 /* Public light theme overrides shared by all Blade pages. */
 body.bg-slate-950 {
     background-color: #f8fafc !important;

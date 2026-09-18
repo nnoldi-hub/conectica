@@ -34,6 +34,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+        <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-cyan-400 focus:px-4 focus:py-3 focus:font-semibold focus:text-slate-950">
+            Sari la continutul principal
+        </a>
         <header class="border-b border-white/10">
             <div class="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5 lg:px-8">
                 <a href="{{ route('home') }}" aria-label="Conectica IT - pagina principala" class="flex items-center gap-2">
@@ -55,11 +58,11 @@
                     ];
                     $isContactActive = request()->routeIs('contact.*');
                 @endphp
-                <nav class="desktop-nav items-center gap-6 text-sm text-slate-300">
+                <nav aria-label="Navigare principala" class="desktop-nav items-center gap-6 text-sm text-slate-300">
                     @foreach ($navLinks as $link)
-                        <a href="{{ route($link['route']) }}" class="transition {{ request()->routeIs($link['pattern']) ? 'font-semibold text-cyan-300' : 'hover:text-white' }}">{{ $link['label'] }}</a>
+                        <a href="{{ route($link['route']) }}" @if (request()->routeIs($link['pattern'])) aria-current="page" @endif class="transition {{ request()->routeIs($link['pattern']) ? 'font-semibold text-cyan-300' : 'hover:text-white' }}">{{ $link['label'] }}</a>
                     @endforeach
-                    <a href="{{ route('contact.create') }}" class="rounded-full border px-4 py-2 font-medium transition {{ $isContactActive ? 'border-cyan-400 bg-cyan-400 text-slate-950' : 'border-cyan-400/40 text-cyan-300 hover:border-cyan-300 hover:text-cyan-200' }}">Contact</a>
+                    <a href="{{ route('contact.create') }}" @if ($isContactActive) aria-current="page" @endif class="rounded-full border px-4 py-2 font-medium transition {{ $isContactActive ? 'border-cyan-400 bg-cyan-400 text-slate-950' : 'border-cyan-400/40 text-cyan-300 hover:border-cyan-300 hover:text-cyan-200' }}">Contact</a>
                 </nav>
                 <details class="mobile-menu group relative">
                     <summary class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-xl border border-white/10 text-slate-200 transition hover:border-cyan-400/50 hover:text-cyan-300 [&::-webkit-details-marker]:hidden">
@@ -71,17 +74,19 @@
                             <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
                         </svg>
                     </summary>
-                    <nav class="absolute right-0 top-14 z-20 w-64 rounded-2xl border border-slate-200 bg-white p-3 text-sm text-slate-700 shadow-2xl shadow-slate-950/10">
+                    <nav aria-label="Navigare mobila" class="absolute right-0 top-14 z-20 w-64 rounded-2xl border border-slate-200 bg-white p-3 text-sm text-slate-700 shadow-2xl shadow-slate-950/10">
                         @foreach ($navLinks as $link)
-                            <a href="{{ route($link['route']) }}" class="block rounded-xl px-4 py-3 transition {{ request()->routeIs($link['pattern']) ? 'bg-cyan-50 font-semibold text-cyan-600' : 'hover:bg-slate-100 hover:text-cyan-600' }}">{{ $link['label'] }}</a>
+                            <a href="{{ route($link['route']) }}" @if (request()->routeIs($link['pattern'])) aria-current="page" @endif class="block rounded-xl px-4 py-3 transition {{ request()->routeIs($link['pattern']) ? 'bg-cyan-50 font-semibold text-cyan-600' : 'hover:bg-slate-100 hover:text-cyan-600' }}">{{ $link['label'] }}</a>
                         @endforeach
-                        <a href="{{ route('contact.create') }}" class="mt-2 block rounded-xl px-4 py-3 font-semibold transition {{ $isContactActive ? 'bg-cyan-50 text-cyan-600' : 'text-slate-700 hover:bg-slate-100 hover:text-cyan-600' }}">Contact</a>
+                        <a href="{{ route('contact.create') }}" @if ($isContactActive) aria-current="page" @endif class="mt-2 block rounded-xl px-4 py-3 font-semibold transition {{ $isContactActive ? 'bg-cyan-50 text-cyan-600' : 'text-slate-700 hover:bg-slate-100 hover:text-cyan-600' }}">Contact</a>
                     </nav>
                 </details>
             </div>
         </header>
 
-        @yield('content')
+        <div id="main-content" tabindex="-1">
+            @yield('content')
+        </div>
 
         <footer id="contact" class="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 text-sm text-slate-400 sm:px-6 sm:py-10 lg:px-8">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
