@@ -29,6 +29,20 @@ class ConversionByPageChart extends ChartWidget
             ->limit(8)
             ->pluck('total', 'path');
 
+        $labels = $grouped->keys()->map(function (string $path): string {
+            return match (true) {
+                $path === '/' => 'Homepage',
+                $path === '/servicii' => 'Servicii',
+                $path === '/proiecte' => 'Proiecte',
+                $path === '/blog' => 'Blog',
+                $path === '/contact' => 'Contact',
+                str_starts_with($path, '/servicii/') => 'Serviciu · '.str_replace('-', ' ', substr($path, 10)),
+                str_starts_with($path, '/proiecte/') => 'Proiect · '.str_replace('-', ' ', substr($path, 10)),
+                str_starts_with($path, '/blog/') => 'Articol · '.str_replace('-', ' ', substr($path, 6)),
+                default => $path,
+            };
+        })->all();
+
         return [
             'datasets' => [
                 [
@@ -36,7 +50,7 @@ class ConversionByPageChart extends ChartWidget
                     'backgroundColor' => ['#22d3ee', '#0891b2', '#0e7490', '#155e75', '#64748b', '#94a3b8', '#cbd5e1', '#e2e8f0'],
                 ],
             ],
-            'labels' => $grouped->keys()->all(),
+            'labels' => $labels,
         ];
     }
 }

@@ -44,6 +44,27 @@ class ConversionByTargetChart extends ChartWidget
             ->limit(10)
             ->pluck('total', 'target_label');
 
+        $labels = $grouped->keys()->map(function (string $target) use ($targetLabels): string {
+            if (isset($targetLabels[$target])) {
+                return $targetLabels[$target];
+            }
+
+            foreach ([
+                'services_list_details_' => 'Lista servicii · Detalii',
+                'services_list_title_' => 'Lista servicii · Titlu',
+                'projects_list_' => 'Lista proiecte',
+                'blog_list_' => 'Lista blog',
+                'project_demo_' => 'Proiect · Demo',
+                'project_github_' => 'Proiect · Cod',
+            ] as $prefix => $label) {
+                if (str_starts_with($target, $prefix)) {
+                    return $label.' · '.str_replace('-', ' ', substr($target, strlen($prefix)));
+                }
+            }
+
+            return $target;
+        })->all();
+
         return [
             'datasets' => [
                 [
@@ -53,7 +74,7 @@ class ConversionByTargetChart extends ChartWidget
                     'borderRadius' => 6,
                 ],
             ],
-            'labels' => $grouped->keys()->map(fn (string $target) => $targetLabels[$target] ?? $target)->all(),
+            'labels' => $labels,
         ];
     }
 }
