@@ -32,14 +32,6 @@ document.addEventListener('click', (event) => {
     }
 });
 
-document.addEventListener('submit', (event) => {
-    const form = event.target.closest('[data-track-submit]');
-
-    if (form) {
-        trackConversion(form.dataset.trackSubmit, form);
-    }
-});
-
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {

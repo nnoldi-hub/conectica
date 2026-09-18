@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ContactRequestConfirmation;
 use App\Mail\ContactRequestReceived;
 use App\Models\ContactRequest;
+use App\Models\ConversionEvent;
 use App\Models\EmailLog;
 use App\Models\User;
 use App\Notifications\NewContactRequestReceived;
@@ -48,6 +49,13 @@ class ContactController extends Controller
 
         unset($validated['privacy_accepted']);
         $contactRequest = ContactRequest::query()->create($validated);
+        ConversionEvent::query()->create([
+            'event_name' => 'contact_submitted',
+            'path' => '/contact',
+            'target' => 'contact_form',
+            'referrer_host' => $this->referrerHost($request->headers->get('referer')),
+            'occurred_at' => now(),
+        ]);
 
         $this->sendTracked(
             mailable: new ContactRequestReceived($contactRequest),
@@ -115,5 +123,16 @@ class ContactController extends Controller
         $elapsed = microtime(true) - $renderedAt;
 
         return $elapsed < 3 || $elapsed > 3600;
+    }
+
+    private function referrerHost(?string $referrer): ?string
+    {
+        if (! $referrer) {
+            return null;
+        }
+
+        $host = parse_url($referrer, PHP_URL_HOST);
+
+        return is_string($host) ? substr($host, 0, 255) : null;
     }
 }

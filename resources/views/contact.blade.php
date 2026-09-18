@@ -14,7 +14,7 @@
             @if (session('contact_sent'))
                 <div class="mb-8 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-4 text-emerald-200">{{ session('contact_sent') }}</div>
             @endif
-            <form method="POST" action="{{ route('contact.store') }}" data-track-submit="contact_submitted" class="space-y-6">
+            <form method="POST" action="{{ route('contact.store') }}" class="space-y-6">
                 @csrf
                 <input type="hidden" name="form_rendered_at" value="{{ $formRenderedAt }}">
                 <div aria-hidden="true" style="display:none;" tabindex="-1">
