@@ -90,6 +90,30 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
-        return view('blog.show', compact('post', 'relatedPosts'));
+        $searchableText = strtolower($post->title.' '.implode(' ', $post->tags ?? []));
+        $serviceSlug = match (true) {
+            str_contains($searchableText, 'automat') => 'automatizari',
+            str_contains($searchableText, 'erp'),
+            str_contains($searchableText, 'crm'),
+            str_contains($searchableText, 'digitaliz'),
+            str_contains($searchableText, 'excel'),
+            str_contains($searchableText, 'santier') => 'produse-software',
+            default => 'dezvoltare-web',
+        };
+
+        $recommendedService = Service::query()
+            ->published()
+            ->where('slug', $serviceSlug)
+            ->first();
+
+        $recommendedProject = match (true) {
+            str_contains($searchableText, 'fleetly'),
+            str_contains($searchableText, 'flote') => Project::query()->published()->where('slug', 'fleetly')->first(),
+            str_contains($searchableText, 'modulia'),
+            str_contains($searchableText, 'construct') => Project::query()->published()->where('slug', 'modulia')->first(),
+            default => null,
+        };
+
+        return view('blog.show', compact('post', 'relatedPosts', 'recommendedService', 'recommendedProject'));
     }
 }

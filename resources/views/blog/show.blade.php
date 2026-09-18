@@ -52,6 +52,26 @@
         <p class="mt-6 text-lg leading-8 text-slate-300 md:mt-8 md:text-xl md:leading-9">{{ $post->excerpt }}</p>
         <div class="prose prose-invert post-content mt-12 max-w-none leading-8 text-slate-300">{!! $post->body_html !!}</div>
 
+        @if ($recommendedService || $recommendedProject)
+            <section class="mt-12 grid gap-4 border-t border-white/10 pt-8 sm:grid-cols-2" aria-labelledby="relevant-resources-title">
+                <h2 id="relevant-resources-title" class="sm:col-span-2 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Resurse relevante pentru acest subiect</h2>
+                @if ($recommendedService)
+                    <a href="{{ route('services.show', $recommendedService) }}" data-track-event="cta_click" data-track-target="article_recommended_service_{{ $recommendedService->slug }}" class="rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-5 transition hover:border-cyan-300/50">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-cyan-300">Serviciu</span>
+                        <span class="mt-2 block text-lg font-semibold text-white">{{ $recommendedService->title }}</span>
+                        <span class="mt-2 block text-sm leading-6 text-slate-400">{{ $recommendedService->description }}</span>
+                    </a>
+                @endif
+                @if ($recommendedProject)
+                    <a href="{{ route('projects.show', $recommendedProject) }}" data-track-event="cta_click" data-track-target="article_recommended_project_{{ $recommendedProject->slug }}" class="rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-5 transition hover:border-cyan-300/50">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-cyan-300">Studiu de caz</span>
+                        <span class="mt-2 block text-lg font-semibold text-white">{{ $recommendedProject->title }}</span>
+                        <span class="mt-2 block text-sm leading-6 text-slate-400">{{ $recommendedProject->summary }}</span>
+                    </a>
+                @endif
+            </section>
+        @endif
+
         @php
             $facebookShareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode(route('blog.show', $post)) . '&quote=' . urlencode($post->title . ' | Conectica IT');
         @endphp
