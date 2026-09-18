@@ -9,6 +9,7 @@ use App\Models\ContactRequest;
 use App\Models\Media;
 use App\Models\Post;
 use App\Models\Project;
+use App\Models\Service;
 use App\Models\User;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -178,6 +179,7 @@ class ExampleTest extends TestCase
             ->assertHeader('Content-Type', 'application/xml; charset=UTF-8')
             ->assertSee(route('home'), false)
             ->assertSee(route('services.index'), false)
+            ->assertSee(route('services.show', Service::query()->published()->first()), false)
             ->assertDontSee('platforma-digitala-personalizata', false)
             ->assertDontSee('cum-incepi-un-produs-software', false);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Project;
+use App\Models\Service;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
@@ -18,6 +19,13 @@ class SeoController extends Controller
                 ['loc' => route('projects.index')],
                 ['loc' => route('blog.index')],
             ];
+
+            foreach (Service::query()->published()->orderBy('sort_order')->get(['slug', 'updated_at']) as $service) {
+                $urls[] = [
+                    'loc' => route('services.show', $service),
+                    'lastmod' => $service->updated_at,
+                ];
+            }
 
             foreach (Project::query()->published()->orderBy('id')->get(['slug', 'updated_at']) as $project) {
                 $urls[] = [
