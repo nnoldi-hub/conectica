@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\PostCategory;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\SocialLink;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View as ViewResponse;
 
@@ -42,10 +44,26 @@ class HomeController extends Controller
         return view('projects.show', compact('project'));
     }
 
-    public function blog(): ViewResponse
+    public function blog(Request $request): ViewResponse
     {
+        $categorySlug = $request->string('category')->trim()->toString();
+        $selectedCategory = $categorySlug !== ''
+            ? PostCategory::query()->where('slug', $categorySlug)->first()
+            : null;
+
         return view('blog.index', [
-            'posts' => Post::query()->with('category')->published()->latest('published_at')->paginate(9),
+            'posts' => Post::query()
+                ->with('category')
+                ->published()
+                ->when($selectedCategory, fn ($query) => $query->where('post_category_id', $selectedCategory->id))
+                ->latest('published_at')
+                ->paginate(9)
+                ->withQueryString(),
+            'categories' => PostCategory::query()
+                ->withCount(['posts' => fn ($query) => $query->published()])
+                ->orderBy('name')
+                ->get(),
+            'selectedCategory' => $selectedCategory,
         ]);
     }
 

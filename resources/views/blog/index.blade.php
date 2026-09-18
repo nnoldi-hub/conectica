@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
-@section('title', 'Blog tehnic | Conectica IT')
-@section('description', 'Articole despre dezvoltare software, automatizari si produse digitale.')
+@section('title', ($selectedCategory ? $selectedCategory->name.' | Blog Conectica IT' : 'Blog tehnic | Conectica IT'))
+@section('description', $selectedCategory ? 'Articole Conectica IT despre '.$selectedCategory->name.'.' : 'Articole despre dezvoltare software, automatizari si produse digitale.')
 @section('structured_data')
     {!! json_encode([chr(64).'context' => 'https://schema.org', chr(64).'type' => 'CollectionPage', 'name' => 'Blog tehnic Conectica IT', 'url' => route('blog.index')], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
 @endsection
@@ -9,7 +9,22 @@
 @section('content')
     <main class="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8 lg:py-28">
         <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400">Blog tehnic</p>
-        <h1 class="mt-5 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">Idei practice pentru produse digitale mai bune.</h1>
+        <h1 class="mt-5 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-6xl">{{ $selectedCategory ? $selectedCategory->name : 'Idei practice pentru produse digitale mai bune.' }}</h1>
+        <p class="mt-6 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
+            Articole despre arhitectură software, digitalizare, UX și decizii practice pentru companii din România.
+        </p>
+        <nav aria-label="Filtrează articolele după categorie" class="mt-8 flex flex-wrap gap-2">
+            <a href="{{ route('blog.index') }}" class="rounded-full border px-4 py-2 text-sm font-semibold transition {{ ! $selectedCategory ? 'border-cyan-700 bg-cyan-700 text-white' : 'border-slate-300 text-slate-700 hover:border-cyan-700 hover:text-cyan-800' }}">
+                Toate articolele
+            </a>
+            @foreach ($categories as $category)
+                @if ($category->posts_count > 0)
+                    <a href="{{ route('blog.index', ['category' => $category->slug]) }}" class="rounded-full border px-4 py-2 text-sm font-semibold transition {{ $selectedCategory?->is($category) ? 'border-cyan-700 bg-cyan-700 text-white' : 'border-slate-300 text-slate-700 hover:border-cyan-700 hover:text-cyan-800' }}">
+                        {{ $category->name }} ({{ $category->posts_count }})
+                    </a>
+                @endif
+            @endforeach
+        </nav>
         <div class="mt-10 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
             @forelse ($posts as $post)
                 <article class="min-w-0 flex flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-8">
@@ -27,7 +42,7 @@
                     <a href="{{ route('blog.show', $post) }}" class="mt-8 text-sm font-semibold text-white transition hover:text-cyan-300">Citeste articolul <span class="ml-2" aria-hidden="true">-&gt;</span></a>
                 </article>
             @empty
-                <p class="text-slate-400">Primele articole vor fi publicate in curand.</p>
+                <p class="text-slate-400">{{ $selectedCategory ? 'Nu exista articole publicate in aceasta categorie.' : 'Primele articole vor fi publicate in curand.' }}</p>
             @endforelse
         </div>
         @if ($posts->hasPages())
