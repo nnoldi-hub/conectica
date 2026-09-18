@@ -9,6 +9,8 @@ use App\Filament\Widgets\CommunicationOverview;
 use App\Filament\Widgets\ContactRequestsByServiceChart;
 use App\Filament\Widgets\ContactRequestsPerDayChart;
 use App\Filament\Widgets\ConversionOverview;
+use App\Filament\Widgets\ConversionByPageChart;
+use App\Filament\Widgets\ConversionByTargetChart;
 use App\Filament\Widgets\QuickActions;
 use App\Filament\Widgets\SeoPerformanceOverview;
 use App\Filament\Widgets\SystemOverview;
@@ -66,6 +68,8 @@ class AdminPanelProvider extends PanelProvider
                 AccountWidget::class,
                 AdminStatsOverview::class,
                 ConversionOverview::class,
+                ConversionByTargetChart::class,
+                ConversionByPageChart::class,
                 CommunicationOverview::class,
                 ContactRequestsPerDayChart::class,
                 ContactRequestsByServiceChart::class,
