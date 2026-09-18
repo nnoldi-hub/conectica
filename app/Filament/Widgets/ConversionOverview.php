@@ -41,6 +41,9 @@ class ConversionOverview extends StatsOverviewWidget
         $conversionRate = $ctaClicksThirtyDays > 0
             ? number_format(($contactSubmissions / $ctaClicksThirtyDays) * 100, 1).'%'
             : 'N/A';
+        $conversionSample = $ctaClicksThirtyDays > 0
+            ? $contactSubmissions.' formular(e) / '.$ctaClicksThirtyDays.' click(uri)'
+            : 'Niciun click CTA înregistrat';
 
         return [
             Stat::make('Clickuri CTA / 7 zile', $ctaClicks)
@@ -53,7 +56,7 @@ class ConversionOverview extends StatsOverviewWidget
                 ->description('articole si pagini distribuite')
                 ->color('warning'),
             Stat::make('Formulare / clickuri CTA', $conversionRate)
-                ->description('raport orientativ pe ultimele 30 de zile')
+                ->description($conversionSample.' · ultimele 30 de zile')
                 ->color('primary'),
             Stat::make('Pagina cu cele mai multe CTA', $topPage ?: 'Nicio conversie')
                 ->description('in ultimele 30 de zile')
