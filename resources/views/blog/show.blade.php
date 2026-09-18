@@ -20,6 +20,7 @@
         'publisher' => [chr(64).'type' => 'Organization', 'name' => 'Conectica IT', 'url' => route('home')],
         'articleSection' => $post->category?->name,
         'keywords' => $post->tags,
+        'wordCount' => str_word_count(strip_tags((string) $post->body)),
         'image' => $post->image_path ? [Storage::disk('public')->url($post->image_path)] : [asset('logo_conectica.png')],
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
 @endsection
@@ -38,9 +39,12 @@
         @if ($post->image_path)
             <img loading="lazy" src="{{ Storage::disk('public')->url($post->image_path) }}" alt="{{ $post->title }}" class="mt-8 aspect-video max-h-[300px] w-full rounded-3xl object-cover md:mt-12 md:max-h-none">
         @endif
-        <div class="mt-16 flex items-center gap-3 text-sm text-slate-400">
+        <div class="mt-16 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate-400">
             <time datetime="{{ $post->published_at->toDateString() }}">{{ $post->published_at->format('d.m.Y') }}</time>
+            <span aria-hidden="true">·</span>
+            <span>{{ $post->reading_time_minutes }} min de citire</span>
             @if ($post->category)
+                <span aria-hidden="true">·</span>
                 <span class="text-cyan-300">{{ $post->category->name }}</span>
             @endif
         </div>

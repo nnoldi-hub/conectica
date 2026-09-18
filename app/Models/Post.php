@@ -79,6 +79,15 @@ class Post extends Model
         );
     }
 
+    protected function readingTimeMinutes(): Attribute
+    {
+        return Attribute::get(function (): int {
+            $wordCount = str_word_count(strip_tags((string) $this->body));
+
+            return max(1, (int) ceil($wordCount / 200));
+        });
+    }
+
     protected function sanitizeBodyHtml(string $html): string
     {
         $allowedTags = '<p><br><strong><b><em><i><u><s><ul><ol><li><a><h1><h2><h3><h4><blockquote><img><span><code><pre>';
