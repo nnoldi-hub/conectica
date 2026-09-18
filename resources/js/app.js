@@ -17,6 +17,7 @@ const trackConversion = (eventName, target = null) => {
         },
         body: JSON.stringify({
             event_name: eventName,
+            path: window.location.pathname,
             target: target?.dataset.trackTarget || target?.getAttribute('href'),
         }),
     }).catch(() => {
