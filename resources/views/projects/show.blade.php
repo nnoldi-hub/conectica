@@ -7,12 +7,27 @@
     @section('og_image', Storage::disk('public')->url($project->image_path))
 @endif
 @section('structured_data')
-    {!! json_encode([chr(64).'context' => 'https://schema.org', chr(64).'type' => 'CreativeWork', 'name' => $project->title, 'description' => $project->summary, 'url' => route('projects.show', $project)], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+    {!! json_encode([
+        chr(64).'context' => 'https://schema.org',
+        chr(64).'type' => 'CaseStudy',
+        'name' => $project->title,
+        'description' => $project->summary,
+        'url' => route('projects.show', $project),
+        'about' => $project->industry,
+        'creator' => [chr(64).'type' => 'Organization', 'name' => 'Conectica IT', 'url' => route('home')],
+        'image' => $project->image_path ? [Storage::disk('public')->url($project->image_path)] : [asset('logo_conectica.png')],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
 @endsection
 
 @section('content')
     <main class="mx-auto max-w-4xl px-4 py-16 sm:px-6 md:py-20 lg:px-8 lg:py-28">
-        <a href="{{ route('projects.index') }}" class="text-sm font-medium text-cyan-300 transition hover:text-cyan-200">&lt;- Inapoi la proiecte</a>
+        <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+            <a href="{{ route('home') }}" class="transition hover:text-slate-900">Acasa</a>
+            <span class="mx-2" aria-hidden="true">/</span>
+            <a href="{{ route('projects.index') }}" class="transition hover:text-slate-900">Proiecte</a>
+            <span class="mx-2" aria-hidden="true">/</span>
+            <span>{{ $project->title }}</span>
+        </nav>
         @if ($project->image_path)
             <img loading="lazy" src="{{ Storage::disk('public')->url($project->image_path) }}" alt="{{ $project->title }}" class="mt-8 aspect-video max-h-[300px] w-full rounded-3xl object-cover md:mt-12 md:max-h-none">
         @endif
@@ -43,7 +58,10 @@
         @endif
 
         @if ($project->challenge || $project->solution || $project->results)
-            <div class="mt-16 grid gap-6 md:mt-20 md:grid-cols-3">
+            <section class="mt-16 md:mt-20" aria-labelledby="case-study-title">
+                <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-400">Studiu de caz</p>
+                <h2 id="case-study-title" class="mt-4 text-3xl font-semibold tracking-tight text-white">De la problemă la rezultat</h2>
+                <div class="mt-8 grid gap-6 md:grid-cols-3">
                 @if ($project->challenge)
                     <div class="min-w-0 rounded-3xl border border-white/10 bg-white/[0.04] p-8">
                         <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">Provocarea</p>
@@ -62,7 +80,17 @@
                         <p class="mt-4 leading-7 text-slate-300">{{ $project->results }}</p>
                     </div>
                 @endif
-            </div>
+                </div>
+            </section>
+        @endif
+
+        @if ($project->testimonial_quote)
+            <figure class="mt-16 rounded-3xl border border-cyan-900/10 bg-cyan-50 p-7 sm:p-10">
+                <blockquote class="text-2xl font-medium leading-9 text-slate-950">„{{ $project->testimonial_quote }}”</blockquote>
+                @if ($project->testimonial_author)
+                    <figcaption class="mt-5 text-sm font-semibold text-cyan-800">{{ $project->testimonial_author }}</figcaption>
+                @endif
+            </figure>
         @endif
 
         @if (! empty($project->gallery))
@@ -134,5 +162,10 @@
             <p class="text-lg font-semibold text-white">Vrei un proiect construit la fel de atent pentru afacerea ta?</p>
             <a href="{{ route('contact.create') }}" class="w-full rounded-full bg-cyan-400 px-6 py-3 text-center font-semibold text-slate-950 transition hover:bg-cyan-300 sm:w-auto">Pornim o conversatie</a>
         </div>
+        <section class="mt-16 rounded-3xl border border-cyan-900/10 bg-cyan-50 p-7 sm:p-10" aria-labelledby="project-cta-title">
+            <h2 id="project-cta-title" class="text-3xl font-semibold tracking-tight text-slate-950">Ai un proiect cu o provocare similară?</h2>
+            <p class="mt-3 max-w-2xl leading-7 text-slate-700">Povestește-ne ce vrei să îmbunătățești și îți răspundem cu o direcție clară pentru următorul pas.</p>
+            <a href="{{ route('contact.create') }}" class="mt-6 inline-flex items-center justify-center rounded-full bg-cyan-700 px-6 py-3 font-semibold text-white transition hover:bg-cyan-800">Discutăm despre proiect</a>
+        </section>
     </main>
 @endsection
