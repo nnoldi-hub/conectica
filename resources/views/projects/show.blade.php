@@ -49,10 +49,10 @@
         @if ($project->demo_url || $project->github_url)
             <div class="mt-10 flex flex-wrap gap-4">
                 @if ($project->demo_url)
-                    <a href="{{ $project->demo_url }}" target="_blank" rel="noreferrer" class="w-full rounded-full bg-cyan-400 px-6 py-3 text-center font-semibold text-slate-950 sm:w-auto">Vezi demo</a>
+                    <a href="{{ $project->demo_url }}" data-track-event="cta_click" data-track-target="project_demo_{{ $project->slug }}" target="_blank" rel="noreferrer" class="w-full rounded-full bg-cyan-400 px-6 py-3 text-center font-semibold text-slate-950 sm:w-auto">Vezi demo</a>
                 @endif
                 @if ($project->github_url)
-                    <a href="{{ $project->github_url }}" target="_blank" rel="noreferrer" class="w-full rounded-full border border-white/20 px-6 py-3 text-center font-semibold text-white sm:w-auto">Vezi codul</a>
+                    <a href="{{ $project->github_url }}" data-track-event="cta_click" data-track-target="project_github_{{ $project->slug }}" target="_blank" rel="noreferrer" class="w-full rounded-full border border-white/20 px-6 py-3 text-center font-semibold text-white sm:w-auto">Vezi codul</a>
                 @endif
             </div>
         @endif
@@ -160,7 +160,7 @@
 
         <div class="mt-16 flex flex-col items-start gap-4 rounded-3xl border border-cyan-400/30 bg-cyan-400/5 p-8 md:mt-20 sm:flex-row sm:items-center sm:justify-between">
             <p class="text-lg font-semibold text-white">Vrei un proiect construit la fel de atent pentru afacerea ta?</p>
-            <a href="{{ route('contact.create') }}" class="w-full rounded-full bg-cyan-400 px-6 py-3 text-center font-semibold text-slate-950 transition hover:bg-cyan-300 sm:w-auto">Pornim o conversatie</a>
+            <a href="{{ route('contact.create') }}" data-track-event="cta_click" data-track-target="project_final_contact" class="w-full rounded-full bg-cyan-400 px-6 py-3 text-center font-semibold text-slate-950 transition hover:bg-cyan-300 sm:w-auto">Pornim o conversatie</a>
         </div>
         <section class="mt-16 rounded-3xl border border-cyan-900/10 bg-cyan-50 p-7 sm:p-10" aria-labelledby="project-cta-title">
             <h2 id="project-cta-title" class="text-3xl font-semibold tracking-tight text-slate-950">Ai un proiect cu o provocare similară?</h2>

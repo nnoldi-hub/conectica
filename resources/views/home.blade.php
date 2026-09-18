@@ -65,7 +65,7 @@
                                 </span>
                                 <h2 class="mt-5 text-xl font-semibold text-white">{{ $service->title }}</h2>
                                 <p class="mt-4 text-base leading-7 text-slate-400 md:text-lg">{{ $service->description }}</p>
-                                <a href="{{ route('services.index') }}" class="mt-6 inline-flex items-center text-sm font-semibold text-cyan-300 transition hover:text-cyan-200">
+                                <a href="{{ route('services.index') }}" data-track-event="cta_click" data-track-target="home_service_{{ $service->slug }}" class="mt-6 inline-flex items-center text-sm font-semibold text-cyan-300 transition hover:text-cyan-200">
                                     Afla mai multe <span class="ml-2" aria-hidden="true">-&gt;</span>
                                 </a>
                             </article>
@@ -87,7 +87,7 @@
                                         <span class="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-300">{{ $technology }}</span>
                                     @endforeach
                                 </div>
-                                <a href="{{ route('projects.show', $project) }}" class="mt-6 inline-flex text-sm font-semibold text-white transition hover:text-cyan-300">Vezi proiectul <span class="ml-2" aria-hidden="true">-&gt;</span></a>
+                                <a href="{{ route('projects.show', $project) }}" data-track-event="cta_click" data-track-target="home_project_{{ $project->slug }}" class="mt-6 inline-flex text-sm font-semibold text-white transition hover:text-cyan-300">Vezi proiectul <span class="ml-2" aria-hidden="true">-&gt;</span></a>
                             </article>
                         @endforeach
                     </div>
@@ -107,7 +107,7 @@
                                 <a href="{{ $facebookLink->url }}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300">
                                     Pagina Facebook
                                 </a>
-                                <a href="{{ route('blog.index') }}" class="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 font-semibold text-white transition hover:border-white/30">
+                                <a href="{{ route('blog.index') }}" data-track-event="cta_click" data-track-target="home_blog" class="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 font-semibold text-white transition hover:border-white/30">
                                     Vezi articolele
                                 </a>
                             </div>

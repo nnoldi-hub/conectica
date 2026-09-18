@@ -63,7 +63,7 @@
                     @foreach ($navLinks as $link)
                         <a href="{{ route($link['route']) }}" @if (request()->routeIs($link['pattern'])) aria-current="page" @endif class="transition {{ request()->routeIs($link['pattern']) ? 'font-semibold text-cyan-300' : 'hover:text-white' }}">{{ $link['label'] }}</a>
                     @endforeach
-                    <a href="{{ route('contact.create') }}" @if ($isContactActive) aria-current="page" @endif class="rounded-full border px-4 py-2 font-medium transition {{ $isContactActive ? 'border-cyan-400 bg-cyan-400 text-slate-950' : 'border-cyan-400/40 text-cyan-300 hover:border-cyan-300 hover:text-cyan-200' }}">Contact</a>
+                    <a href="{{ route('contact.create') }}" data-track-event="cta_click" data-track-target="nav_contact" @if ($isContactActive) aria-current="page" @endif class="rounded-full border px-4 py-2 font-medium transition {{ $isContactActive ? 'border-cyan-400 bg-cyan-400 text-slate-950' : 'border-cyan-400/40 text-cyan-300 hover:border-cyan-300 hover:text-cyan-200' }}">Contact</a>
                 </nav>
                 <details class="mobile-menu group relative">
                     <summary class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-xl border border-white/10 text-slate-200 transition hover:border-cyan-400/50 hover:text-cyan-300 [&::-webkit-details-marker]:hidden">
@@ -79,7 +79,7 @@
                         @foreach ($navLinks as $link)
                             <a href="{{ route($link['route']) }}" @if (request()->routeIs($link['pattern'])) aria-current="page" @endif class="block rounded-xl px-4 py-3 transition {{ request()->routeIs($link['pattern']) ? 'bg-cyan-50 font-semibold text-cyan-600' : 'hover:bg-slate-100 hover:text-cyan-600' }}">{{ $link['label'] }}</a>
                         @endforeach
-                        <a href="{{ route('contact.create') }}" @if ($isContactActive) aria-current="page" @endif class="mt-2 block rounded-xl px-4 py-3 font-semibold transition {{ $isContactActive ? 'bg-cyan-50 text-cyan-600' : 'text-slate-700 hover:bg-slate-100 hover:text-cyan-600' }}">Contact</a>
+                        <a href="{{ route('contact.create') }}" data-track-event="cta_click" data-track-target="mobile_nav_contact" @if ($isContactActive) aria-current="page" @endif class="mt-2 block rounded-xl px-4 py-3 font-semibold transition {{ $isContactActive ? 'bg-cyan-50 text-cyan-600' : 'text-slate-700 hover:bg-slate-100 hover:text-cyan-600' }}">Contact</a>
                     </nav>
                 </details>
             </div>
@@ -94,7 +94,7 @@
                 <p>&copy; {{ date('Y') }} Conectica IT. Toate drepturile rezervate.</p>
                 <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
                     @include('partials.social-links')
-                    <a href="{{ route('contact.create') }}" class="text-cyan-300 transition hover:text-cyan-200">Trimite o solicitare</a>
+                    <a href="{{ route('contact.create') }}" data-track-event="cta_click" data-track-target="footer_contact" class="text-cyan-300 transition hover:text-cyan-200">Trimite o solicitare</a>
                 </div>
             </div>
             <nav aria-label="Linkuri legale" class="flex flex-wrap gap-x-5 gap-y-2 border-t border-slate-200 pt-5 text-xs">

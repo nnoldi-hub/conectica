@@ -31,7 +31,7 @@
                 <p class="mt-6 text-lg leading-8 text-slate-300">{{ $service->description }}</p>
                 <div class="mt-8 flex flex-wrap gap-3">
                     <a href="{{ route('contact.create') }}" data-track-event="cta_click" data-track-target="service_contact" class="inline-flex items-center justify-center rounded-full bg-cyan-700 px-6 py-3 font-semibold text-white transition hover:bg-cyan-800">Discutăm despre proiect</a>
-                    <a href="{{ route('services.index') }}" class="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 font-semibold text-white transition hover:border-white/40">Toate serviciile</a>
+                    <a href="{{ route('services.index') }}" data-track-event="cta_click" data-track-target="service_all" class="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 font-semibold text-white transition hover:border-white/40">Toate serviciile</a>
                 </div>
             </div>
 
