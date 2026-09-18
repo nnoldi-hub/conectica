@@ -55,10 +55,22 @@ class Post extends Model
                 }
 
                 if (! str_contains($body, '<')) {
-                    $paragraphs = preg_split('/\n{2,}/', $body) ?: [];
+                    $blocks = preg_split('/\n{2,}/', $body) ?: [];
 
-                    return collect($paragraphs)
-                        ->map(fn (string $paragraph): string => '<p>'.nl2br(e(trim($paragraph))).'</p>')
+                    return collect($blocks)
+                        ->map(function (string $block): string {
+                            $block = trim($block);
+
+                            if (str_starts_with($block, '### ')) {
+                                return '<h3>'.e(trim(substr($block, 4))).'</h3>';
+                            }
+
+                            if (str_starts_with($block, '## ')) {
+                                return '<h2>'.e(trim(substr($block, 3))).'</h2>';
+                            }
+
+                            return '<p>'.nl2br(e($block)).'</p>';
+                        })
                         ->implode('');
                 }
 

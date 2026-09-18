@@ -173,6 +173,8 @@ class SeedRealBlogPosts extends Command
             );
 
             foreach ($postsByCategory[$slug] ?? [] as $post) {
+                $post['body'] = $this->structureBody($post['body']);
+
                 Post::query()->updateOrCreate(
                     ['slug' => $post['slug']],
                     $post + [
@@ -189,5 +191,27 @@ class SeedRealBlogPosts extends Command
         $this->info('Categoria si articolele de blog au fost populate cu succes ('.$created.' articole).');
 
         return self::SUCCESS;
+    }
+
+    private function structureBody(string $body): string
+    {
+        if (str_contains($body, '## ')) {
+            return $body;
+        }
+
+        $paragraphs = preg_split('/\n{2,}/', trim($body)) ?: [];
+        $headings = ['Problema reala', 'Abordarea potrivita', 'Ce am invatat', 'Concluzie'];
+
+        return collect($paragraphs)
+            ->map(function (string $paragraph, int $index) use ($headings): string {
+                if ($index === 0) {
+                    return trim($paragraph);
+                }
+
+                $heading = $headings[min($index - 1, count($headings) - 1)];
+
+                return '## '.$heading."\n\n".trim($paragraph);
+            })
+            ->implode("\n\n");
     }
 }
