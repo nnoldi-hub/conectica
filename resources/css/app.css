@@ -87,7 +87,7 @@ body.bg-slate-950 {
 }
 
 .text-slate-400 {
-    color: #64748b !important;
+    color: #475569 !important;
 }
 
 .text-slate-200 {
@@ -140,7 +140,7 @@ textarea.bg-slate-950 {
 .prose-invert {
     --tw-prose-body: #475569;
     --tw-prose-headings: #0f172a;
-    --tw-prose-links: #0891b2;
+    --tw-prose-links: #0e7490;
 }
 
 /* Continutul articolelor de blog (randat din editorul rich text din admin). */
@@ -187,7 +187,7 @@ textarea.bg-slate-950 {
 }
 
 .post-content a {
-    color: #0891b2;
+    color: #0e7490;
     text-decoration: underline;
 }
 
