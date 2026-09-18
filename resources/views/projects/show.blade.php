@@ -165,7 +165,7 @@
         <section class="mt-16 rounded-3xl border border-cyan-900/10 bg-cyan-50 p-7 sm:p-10" aria-labelledby="project-cta-title">
             <h2 id="project-cta-title" class="text-3xl font-semibold tracking-tight text-slate-950">Ai un proiect cu o provocare similară?</h2>
             <p class="mt-3 max-w-2xl leading-7 text-slate-700">Povestește-ne ce vrei să îmbunătățești și îți răspundem cu o direcție clară pentru următorul pas.</p>
-            <a href="{{ route('contact.create') }}" class="mt-6 inline-flex items-center justify-center rounded-full bg-cyan-700 px-6 py-3 font-semibold text-white transition hover:bg-cyan-800">Discutăm despre proiect</a>
+            <a href="{{ route('contact.create') }}" data-track-event="cta_click" data-track-target="project_contact" class="mt-6 inline-flex items-center justify-center rounded-full bg-cyan-700 px-6 py-3 font-semibold text-white transition hover:bg-cyan-800">Discutăm despre proiect</a>
         </section>
     </main>
 @endsection

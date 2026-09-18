@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PdfExportController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ConversionEventController;
 use App\Http\Controllers\EmailTrackingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LegalController;
@@ -15,6 +16,7 @@ Route::get('/termeni-si-conditii', [LegalController::class, 'terms'])->name('leg
 Route::get('/cookies', [LegalController::class, 'cookies'])->name('legal.cookies');
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact')->name('contact.store');
+Route::post('/conversion-events', [ConversionEventController::class, 'store'])->middleware('throttle:30,1')->name('conversion-events.store');
 Route::get('/mail/pixel/{token}.gif', [EmailTrackingController::class, 'pixel'])->name('mail.pixel');
 Route::get('/', HomeController::class)->name('home');
 Route::get('/servicii', [HomeController::class, 'services'])->name('services.index');

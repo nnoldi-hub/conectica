@@ -59,7 +59,7 @@
         <div class="mt-12 border-t border-white/10 pt-8">
             <p class="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300">Distribuie articolul</p>
             <div class="mt-4 flex flex-wrap gap-3">
-                <a href="{{ $facebookShareUrl }}" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center rounded-full bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300">
+                <a href="{{ $facebookShareUrl }}" data-track-event="facebook_share" target="_blank" rel="noreferrer noopener" class="inline-flex items-center justify-center rounded-full bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300">
                     Distribuie pe Facebook
                 </a>
                 <a href="{{ route('blog.index') }}" class="inline-flex items-center justify-center rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/30">
@@ -72,7 +72,7 @@
             <h2 id="article-cta-title" class="text-2xl font-semibold tracking-tight text-slate-950">Ai o problemă similară în compania ta?</h2>
             <p class="mt-3 max-w-xl leading-7 text-slate-700">Putem analiza procesul actual și construi o soluție digitală clară, potrivită pentru echipa ta.</p>
             <div class="mt-5 flex flex-wrap gap-3">
-                <a href="{{ route('contact.create') }}" class="inline-flex items-center justify-center rounded-full bg-cyan-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-cyan-800">Discutăm despre proiect</a>
+                <a href="{{ route('contact.create') }}" data-track-event="cta_click" data-track-target="article_contact" class="inline-flex items-center justify-center rounded-full bg-cyan-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-cyan-800">Discutăm despre proiect</a>
                 <a href="{{ route('services.index') }}" class="inline-flex items-center justify-center rounded-full border border-cyan-800/20 px-5 py-2.5 text-sm font-semibold text-cyan-900 transition hover:bg-white">Vezi serviciile</a>
             </div>
         </section>

@@ -19,10 +19,10 @@
                         rezultate masurabile si o baza tehnica pregatita pentru crestere.
                     </p>
                     <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 md:mt-10">
-                        <a href="{{ route('services.index') }}" class="w-full rounded-full bg-cyan-400 px-6 py-3 text-center font-semibold text-slate-950 transition hover:bg-cyan-300 sm:w-auto">
+                        <a href="{{ route('services.index') }}" data-track-event="cta_click" data-track-target="home_services" class="w-full rounded-full bg-cyan-400 px-6 py-3 text-center font-semibold text-slate-950 transition hover:bg-cyan-300 sm:w-auto">
                             Descopera serviciile
                         </a>
-                        <a href="{{ route('contact.create') }}" class="w-full rounded-full border border-white/20 px-6 py-3 text-center font-semibold text-white transition hover:border-white/50 sm:w-auto">
+                        <a href="{{ route('contact.create') }}" data-track-event="cta_click" data-track-target="home_contact" class="w-full rounded-full border border-white/20 px-6 py-3 text-center font-semibold text-white transition hover:border-white/50 sm:w-auto">
                             Pornim o conversatie
                         </a>
                     </div>
